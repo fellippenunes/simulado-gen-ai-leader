@@ -1,0 +1,2000 @@
+[
+  {
+    "enunciado": "Which of the following define generative AI?",
+    "alternativas": [
+      "A type of artificial intelligence that can create new content including images, text, and music.",
+      "A specific application like a chatbot that utilizes AI technology.",
+      "A type of artificial intelligence that analyzes existing data to identify patterns and make predictions.",
+      "A type of artificial intelligence that focuses on automating repetitive tasks and improving efficiency."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "The term \"generative\" is directly associated with creating new content (\"create new content\"), which can span multiple modalities (text, image, music). Option B is too restrictive, as Generative AI is not limited to chatbots. Options C and D refer to traditional AI and conventional machine learning (focused on analyzing existing data to identify patterns, predictions, and automating repetitive tasks).",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A CEO is hesitant to invest in generative AI because they believe it's just a technology for building chatbots. Which of the following examples demonstrate that generative AI can offer their business much more?",
+    "alternativas": [
+      "Scheduling meetings and managing calendars to help employees improve their time management.",
+      "Providing generic responses to all customer inquiries regardless of the specific issue.",
+      "Counting the number of website visitors and their locations.",
+      "Creating a photo realistic images of new product prototypes based on text description."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Creating photorealistic images of new product prototypes based on text descriptions demonstrates the true power of Generative AI (multimodality and creating brand new/novel content), proving that it goes far beyond simple conversational assistants or traditional office tasks (like scheduling or traffic counting).",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following describes multimodal Gen AI applications?",
+    "alternativas": [
+      "Using Imagen to create an image for the website.",
+      "Using a NotebookLM business to summarize a financial report.",
+      "Using a Gen AI to analyze customer sentiments in video testimonials and survey data.",
+      "Using Gemini in Gmail to write."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Multimodality refers to the capability of handling different types or formats of data simultaneously (such as text, images, code, audio, and video). Option C involves analyzing customer sentiments in video testimonials (audiovisual content) combined with survey data (text), which characterizes a multimodal application. The other options focus on only a single modality (only images in Imagen or only text in Gmail/NotebookLM).",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements accurately describe Gemini? (Select Two)",
+    "alternativas": [
+      "Gemini is a chatbot that can answer questions and generate creative content.",
+      "Gemini is a type of artificial intelligence that can create new content including text, images, music.",
+      "Gemini is a type of generative AI specifically designed for generating images.",
+      "Gemini is an AI assistant that can help you to be more creative and productive.",
+      "Gemini is a generative AI model or family of models developed by Google."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Gemini is a family of models developed by Google and functions as an AI assistant focused on productivity and creativity. It is not a mere chatbot and is not designed exclusively for images (for that, Google has the Imagen model, and Lyra for music), invalidating the premise that it natively or exclusively generates all types of music/images in its base definition.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements accurately describe the relationship between foundation models and the Large Language Models (LLMs)? (Select Two)",
+    "alternativas": [
+      "All Large Language Models are foundation models.",
+      "All foundation models are LLMs.",
+      "Foundation models are only used for research purpose while LLMs are used for practical application.",
+      "LLMs are specialized type of foundation models.",
+      "Foundation models and LLMs are unrelated concepts."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Foundation models (FM) represent a broader category of massive models. LLMs (focused on language and text) are a specialization or a subset within foundation models. Therefore, all LLMs are foundation models and represent a specialized type of FM. Foundation models can also work with images, videos, and other media, and are not restricted to text or purely academic research.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "For each of the following items describe if it is a foundation model or not. (Select Three)",
+    "alternativas": [
+      "A deep learning model that can generate realistic images from text descriptions.",
+      "A decision tree model used to predict customer churn.",
+      "A linear regression model.",
+      "A model trained on a vast dataset of images and videos capable of understanding and generating visual content as well as answering questions about it.",
+      "A model trained on a massive dataset capable of translating languages and writing different kinds of creative content."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Foundation models are trained on massive volumes of data and have adaptive capabilities to create or interpret complex content (such as photorealistic images from text descriptions, or translating languages and writing creative content). Statistical and traditional ML models, like Decision Trees or Linear Regression, are highly specialized and do not fall under the category of Foundation Models.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following define a foundation model?",
+    "alternativas": [
+      "Small, very specialized AI.",
+      "Traditional machine learning algorithm that rely on explicitly defined rules.",
+      "Hardware infrastructure used to train and deploy AI model.",
+      "Large AI models trained on a vast quantity of data, capable of adapting to a variety of task."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "A foundation model is a large-scale AI model trained on a vast quantity of data, designed to be capable of adapting to a variety of downstream tasks (usually through fine-tuning by companies). It is not a hardware infrastructure nor does it refer to traditional algorithms.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the purpose of a prompt in a context of foundational models?",
+    "alternativas": [
+      "To provide input to the model and trigger an output.",
+      "To fine-tune the model to a specific task.",
+      "To train the model on a new data.",
+      "To evaluate the model's performance."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "In the context of pre-trained foundation models, a prompt is simply the input (whether text, image, or other modality) provided by the user to trigger and generate a response/output from the model. It should not be confused with training, fine-tuning, or performance evaluation steps.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following is a primary feature of a foundation model?",
+    "alternativas": [
+      "Adaptability across a wide range of tasks.",
+      "Limited to their initial pre-trained functions.",
+      "Specialization for a single task.",
+      "Training on small datasets."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Adaptability across a wide range of different tasks is the primary characteristic that defines and differentiates foundation models. Unlike traditional ML models, they are not limited to a single specific task nor are they trained on small datasets.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the primary difference between foundation model and the traditional AI models?",
+    "alternativas": [
+      "Foundation models are trained on specific data for a single task, while traditional models...",
+      "Foundation models are trained on a massive amount of diverse data for various tasks, while traditional models are trained on specific data for a single task.",
+      "Foundation models cannot be adapted to new tasks, while traditional models can.",
+      "Foundation models are only trained on text data."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Foundation models are trained on a massive amount of diverse data for various tasks, while traditional AI models are highly specialized, trained on specific data to execute a single task (such as classification or prediction).",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "How do foundation models and prompt engineering work together to create value in a generative AI?",
+    "alternativas": [
+      "Foundation models provide the computing power for generative AI, when prompt engineering directs that power to complete specific tasks.",
+      "Foundation models offer a vast knowledge base, and prompt engineering guides the model to use this knowledge in responses.",
+      "Foundation models ensure the ethical use of generative AI, while prompt engineering focuses on improving the quality and the creativity of the outputs.",
+      "Prompt engineering trains the foundation models."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Foundation models act as a vast knowledge base due to their massive pre-training, while prompt engineering serves as the guide directing the model on how to utilize that knowledge to generate specific outputs. Option A is incorrect because hardware infrastructure provides computing power, not the foundation model. Option C is incorrect because ethical use is the responsibility of the users/developers, not the model itself. Option D is incorrect because prompt engineering does not train the model; it only provides inputs for inference.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Why is it important for mid-level managers and individual contributors to be involved in a Gen AI adoption?",
+    "alternativas": [
+      "They have limited understanding of daily operations and users.",
+      "Their proximity to workflows allows them to identify the most impactful Gen AI solutions.",
+      "They should avoid any involvement in Gen AI experimentation.",
+      "Their focus should be solely on technical implementation details."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "In the context of AI adoption strategies (Top-Down and Bottom-Up), mid-level managers and individual contributors represent the Bottom-Up approach. Because they work closely with daily workflows (front lines), they have real insights into operational pain points and can identify where Gen AI solutions will have the most significant practical impact.",
+    "tema": "Section 1.1: Fundamentals of Gen AI Concepts",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is a key advantage of using Google Cloud's Gen AI ecosystem for businesses?",
+    "alternativas": [
+      "It ensures businesses that they will achieve immediate and widespread success in all of their generative AI endeavors.",
+      "It forces each and every business to become an AI-first company.",
+      "It eliminates the need for companies to cultivate internal Gen AI knowledge and experimentation.",
+      "It allows businesses to leverage Google AI advancements without starting from scratch."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "The main advantage of the Google Cloud ecosystem is allowing businesses to leverage advanced Google AI innovations and advancements without having to start from scratch or rebuild complex models. The other options contain overly optimistic or mandatory statements (such as guaranteeing immediate success in everything or forcing all companies to be AI-first).",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the recommended approach for businesses to effectively implement Gen AI?",
+    "alternativas": [
+      "Focus on a top-down strategy driven by executives.",
+      "Focus on a bottom-up approach with no overarching plan.",
+      "Adopt the latest Gen AI trends.",
+      "Combine a top-down strategic vision with bottom-up input from teams."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "The ideal Google-recommended approach combines a top-down strategic vision from executive leadership with bottom-up input and practical feedback from operational teams. Isolated strategies (only executives driving it or only teams experimenting with no central plan) do not work effectively.",
+    "tema": "Section 1.1: Fundamentals of Gen AI Concepts",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following is a benefit of using Google Cloud for Gen AI developments?",
+    "alternativas": [
+      "It offers a limited set of pre-trained AI models for specific industry use cases.",
+      "It focuses primarily on individual developer tools without robust governance or scalability features.",
+      "It requires extensive upfront hardware investment for running complex AI workloads.",
+      "It provides a comprehensive service including scalable infrastructure, enterprise grade governance and security."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Google Cloud provides a comprehensive set of services ranging from scalable infrastructure to enterprise-grade governance and security, unlike partial solutions that lack corporate robustness or require massive on-premise hardware investments.",
+    "tema": "Section 4.2: Secure AI & Protecting Systems",
+    "referencia": {
+      "titulo": "IAM",
+      "url": "https://docs.cloud.google.com/iam/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "Your sales team spends a lot of time answering basic questions about product pricing and availability. You decide to implement a Gen AI chatbot to handle these initial inquiries. Is this augmentation or automation?",
+    "alternativas": [
+      "Augmentation",
+      "Automation"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "This is an example of **Automation**. It represents a classic case of delegating highly repetitive, standardized, and low-cognitive-value tasks (answering questions about product price and availability) entirely to AI, freeing up the human team's time for more strategic and business-closing activities.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "You are a financial analyst who uses Gen AI to analyze large datasets and generate reports summarizing market trends. You then use this information to advise clients on investment strategies. Is this augmentation or automation?",
+    "alternativas": [
+      "Augmentation",
+      "Automation"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "This is an example of **Augmentation**. The AI is used to optimize and accelerate data collection and synthesis of massive reports, but the final decision-making process and personalized strategic advice to clients remain entirely the responsibility of the human analyst. The AI \"augments\" the professional's skills rather than replacing them.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "An online retailer uses Gen AI to generate product descriptions for its vast catalog of items. They provide the AI with the key product attributes, and the AI creates unique and informative descriptions for each item. Is this augmentation or automation?",
+    "alternativas": [
+      "Augmentation",
+      "Automation"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "This is an example of **Automation**. The retailer delegated to the AI the purely transactional and bulk task of generating product descriptions based on structured attributes, replacing an exhaustive manual operation with an automated end-to-end workflow.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A software development team uses Gen AI to generate code for standard functions and components within their application. They then review and integrate this code into the larger project. Is this augmentation or automation?",
+    "alternativas": [
+      "Augmentation",
+      "Automation"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "This is an example of **Augmentation**. Developers use AI as a productivity assistant to generate boilerplate and repetitive code snippets. However, the code is actively reviewed, adjusted, and integrated by humans into the project's global logic, keeping architectural decisions and creativity under human control.\\n---",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "An audio recording of a customer service call is an example of which type of data?",
+    "alternativas": [
+      "Unstructured Data",
+      "Structured Data"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Audio recordings do not have a rigid tabular structure (rows and columns); they contain continuous audio streams, classifying them as unstructured data.",
+    "tema": "Section 1.6: Data Types & Quality",
+    "referencia": {
+      "titulo": "Data pipelines and analytics",
+      "url": "https://docs.cloud.google.com/docs/data?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A digital image of a cat is an example of which type of data?",
+    "alternativas": [
+      "Unstructured Data",
+      "Structured Data"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Images are media files composed of pixels that are not natively organized in structured tables or relational databases.",
+    "tema": "Section 1.6: Data Types & Quality",
+    "referencia": {
+      "titulo": "Data pipelines and analytics",
+      "url": "https://docs.cloud.google.com/docs/data?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A medical record containing patient date of birth, address, vaccination history, and medical records is an example of which type of data?",
+    "alternativas": [
+      "Structured Data",
+      "Unstructured Data"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Records containing well-defined fields such as date of birth, address, and vaccination history are organized in specific logical formats or tables, thus considered structured data.",
+    "tema": "Section 1.6: Data Types & Quality",
+    "referencia": {
+      "titulo": "Data pipelines and analytics",
+      "url": "https://docs.cloud.google.com/docs/data?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A developer is adding an AI component to a complex video game. The AI interacts with the game environment, taking actions and receiving rewards based on the outcomes of those actions through trial and error. What type of machine learning is this?",
+    "alternativas": [
+      "Reinforcement Learning",
+      "Supervised Learning",
+      "Unsupervised Learning"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "In Reinforcement Learning, the agent learns by interacting with the environment, taking actions and receiving feedback in the form of rewards or penalties through trial and error. The main key terms identified are: interaction with the environment, rewards, and trial and error.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "An email provider develops a spam filter to classify incoming emails as either spam or not spam. The model is trained on a dataset of emails that have been manually labeled. What type of machine learning is this?",
+    "alternativas": [
+      "Supervised Learning",
+      "Unsupervised Learning",
+      "Reinforcement Learning"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "In Supervised Learning, the model is trained using a labeled dataset where the correct answers (spam or not spam) are provided to guide the learning process.",
+    "tema": "Section 1.2: Machine Learning Approaches",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Discovering underlying topics in a collection of documents, such as analyzing a set of news articles to identify the main topics being discussed, is an example of which type of machine learning?",
+    "alternativas": [
+      "Unsupervised Learning",
+      "Supervised Learning",
+      "Reinforcement Learning"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "In Unsupervised Learning, the model analyzes unlabeled data to identify hidden patterns, clusters, or internal structures (such as common topics) without external guidance. The key term is discovering underlying topics.",
+    "tema": "Section 1.2: Machine Learning Approaches",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "How does consistency impact AI model training?",
+    "alternativas": [
+      "It increases the speed of data retrieval.",
+      "It reduces the need for data storage.",
+      "Inconsistent formats and labeling can confuse the model and hinder learning.",
+      "It ensures data is relevant to the task."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Consistency in data formats and labeling is crucial. Inconsistent or incorrectly labeled data confuses the machine learning algorithm, impairing training quality and the final model's accuracy.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following represents the correct order of steps in the Machine Learning (ML) lifecycle?",
+    "alternativas": [
+      "Model Training -> Model Deployment -> Data Ingestion and Preparation -> Model Management",
+      "Data Ingestion and Preparation -> Model Deployment -> Model Training -> Model Management",
+      "Data Ingestion and Preparation -> Model Training -> Model Deployment -> Model Management",
+      "Model Deployment -> Model Training -> Model Management -> Data Ingestion and Preparation"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The machine learning lifecycle begins with data ingestion and preparation. Subsequently, the model is trained, then deployed into production, and finally monitored and managed through model management.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the primary purpose of the data ingestion and preparation stage in the ML workflow?",
+    "alternativas": [
+      "Deploying the trained models.",
+      "Collecting, cleaning, and transforming the raw data.",
+      "Training machine learning models.",
+      "Monitoring model performance."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "This stage aims to collect raw data from various sources, and then clean and transform them (ETL process) to ensure they are ready and usable for the training algorithm.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is a model in the context of machine learning?",
+    "alternativas": [
+      "A set of predefined rules for decision making.",
+      "A type of computer hardware.",
+      "A visual representation of data.",
+      "A complex mathematical structure that processes inputs to generate outputs."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "A machine learning model is a complex mathematical structure that has learned patterns from training data, allowing it to process inputs to generate new predictions or outputs. It is not a mere set of predefined rigid rules.",
+    "tema": "Section 1.1: Fundamentals of Gen AI Concepts",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following is an example of unstructured data?",
+    "alternativas": [
+      "A spreadsheet with customer names, addresses, and purchase history.",
+      "A database storing customer records.",
+      "A table with predefined schema.",
+      "A collection of customer reviews in the form of free text paragraphs."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Customer reviews in free-text format do not follow a predefined structure of rows and columns (unlike relational databases and spreadsheets), representing the perfect example of unstructured data.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the primary way that agents learn in reinforcement learning?",
+    "alternativas": [
+      "By being explicitly programmed with the correct actions.",
+      "By observing and imitating expert demonstrations.",
+      "By interacting with their environment and receiving feedback in the form of rewards or penalties.",
+      "By analyzing large datasets of labeled data."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The reinforcement learning agent learns by making autonomous decisions and receiving feedback signals (rewards for correct actions and penalties for mistakes), optimizing its action policy over time. The key terms are interacting with their environment and receiving feedback.\\n---",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements accurately describe the difference between Gemini and Gemma?",
+    "alternativas": [
+      "Gemini is a model capable of generating video content from text or images, while Gemma is a model that specializes in code generation.",
+      "Gemini is a family of lightweight open models, while Gemma is Google's flagship closed model.",
+      "Gemini is a multimodal model that can process and generate various data types including text, images, and audio, while Gemma is a family of lightweight open models suitable for local deployment.",
+      "Both Gemini and Gemma are text-to-image diffusion models that excel at high-quality image generation."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Gemini is Google's flagship commercial and multimodal model, capable of processing text, images, audio, and code. Gemma is the family of open, lightweight models optimized for efficient, local deployments.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements explains the key difference between Imagen and Veo?",
+    "alternativas": [
+      "Both Imagen and Veo are multimodal models that can process various types of data.",
+      "Imagen is a text-to-video model, while Veo is an image-to-text model.",
+      "Imagen is a family of lightweight open models, while Veo is a large language model.",
+      "Imagen is a text-to-image diffusion model that generates images from text, while Veo is a model capable of generating video content from text or images."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Imagen is Google's specialized model focused on high-quality text-to-image generation and editing. Veo is Google's advanced video model, capable of creating high-definition photorealistic videos from text prompts or images.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which of the following best describes the purpose of grounding in generative AI?",
+    "alternativas": [
+      "To improve the speed and efficiency of AI inference.",
+      "To encourage the AI to generate more creative and novel outputs.",
+      "To enhance the accuracy and reliability of the AI-generated content by connecting it to verifiable resources.",
+      "To reduce the complexity of AI model architectures."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Grounding anchors the model's responses in real, verifiable information sources, which drastically reduces the chance of \"hallucinations\" and improves the reliability of the generated data.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the primary purpose of grounding in Generative AI?",
+    "alternativas": [
+      "To reduce the cost of model deployment.",
+      "To connect the AI model's outputs to verifiable resources to ensure accuracy and reduce hallucinations.",
+      "To increase the speed and efficiency of AI models.",
+      "To improve the AI's ability to generate purely creative content."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "The role of grounding is to link generated outputs with reliable sources and facts, ensuring the model does not confidently invent false information.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which type of foundation model would be the most suitable for generating photorealistic images from textual descriptions?",
+    "alternativas": [
+      "Large Language Model",
+      "Classification Model",
+      "Diffusion Model",
+      "Multimodal Model"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Diffusion Models, such as Imagen, are the gold standard architectures and most suitable for generating photorealistic images from text descriptions.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which techniques can be used to overcome the limitations of foundation models' performance?",
+    "alternativas": [
+      "Data collection and hardware upgrades only.",
+      "Increasing processing power and memory.",
+      "Preventing hallucinations by restricting external access.",
+      "Grounding, prompting, fine-tuning, and Human-in-the-Loop (HITL)."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Overcoming the limitations of a foundation model (such as knowledge cutoff or hallucinations) requires a combination of techniques like prompt engineering, grounding to external sources, fine-tuning, and human review (HITL).",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which type of foundation model is specifically designed to understand and generate human language?",
+    "alternativas": [
+      "Large Language Model (LLM)",
+      "Diffusion Model",
+      "Image Generation Model",
+      "Predictive Model"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Large Language Models (LLMs) are foundation models trained specifically on large volumes of textual data to comprehend (understand) and generate human natural language coherently and fluidly.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Why are fine-tuning and customization important factors when choosing a foundation model?",
+    "alternativas": [
+      "They ensure that the model is always available.",
+      "They increase the model's context window.",
+      "They allow the model to be adapted to specific tasks or domains.",
+      "They reduce the cost of using the model."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "While foundation models are excellent generalists, fine-tuning allows them to adapt their general skills to solve highly specific and focused tasks or business rules of a company.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the primary role of Human-in-the-Loop (HITL) in the machine learning lifecycle?",
+    "alternativas": [
+      "To automate all decision-making processes.",
+      "To integrate human expertise into the ML process, especially for tasks requiring judgment or context.",
+      "To replace AI algorithms entirely in the production phase.",
+      "To eliminate the need for data collection."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "HITL (Human-in-the-Loop) ensures the integration of human intelligence and judgment into the AI lifecycle, which is indispensable for auditing outputs, adjusting contextual nuances, and making critical governance decisions that AI alone cannot handle.\\n---",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "In the AI landscape, match the function with the correct layer of the AI landscape (Model or Agent):\n1. Generating programmatically correct and stylistically appropriate text.\n2. Organizing and formatting the content according to specific guidelines.",
+    "alternativas": [
+      "Function 1 belongs to the Model layer; Function 2 belongs to the Agent layer.",
+      "Both functions belong to the Model layer.",
+      "Both functions belong to the Agent layer.",
+      "Function 1 belongs to the Agent layer; Function 2 belongs to the Model layer."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Generating grammatically and stylistically correct text is a baseline task performed by the **Model** layer. Dynamically organizing and formatting this content according to specific user workflows or rules involves the dynamic control of the **Agent** layer.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Consider an AI-powered educational platform that provides personalized learning experiences to students. Match the following functions to either the Model or Agent layer:\n1. Evaluating a student's short answer response to an open-ended question considering factors like factual accuracy, completeness, and clarity of expressions.\n2. Customizing learning materials and exercises for each student.\n3. Tracking student progress and adapting the learning experience.",
+    "alternativas": [
+      "All functions belong to the Agent layer.",
+      "Function 1 belongs to the Model layer; Functions 2 and 3 belong to the Agent layer.",
+      "Functions 1 and 2 belong to the Model layer; Function 3 belongs to the Agent layer.",
+      "All functions belong to the Model layer."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Point-in-time evaluation of a response (text) is performed by the **Model** layer. Customizing study materials and dynamically adapting the learning experience based on the student's historical progress require the **Agent** layer (which interacts, reasons, and makes decisions in the workflow).",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A data science team is training a new generative AI model on a massive dataset of images. They need access to powerful hardware and software resources to handle the computationally intensive training process. Which layer of the Gen AI landscape would provide the necessary computational power and storage?",
+    "alternativas": [
+      "Model layer",
+      "Platform layer",
+      "Agent layer",
+      "Infrastructure layer"
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Raw hardware resources, such as processing power (GPUs, TPUs, CPUs) and large-scale data storage, are the sole responsibility of the **Infrastructure** layer.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What are the two key elements that distinguish AI agents from standalone AI models?",
+    "alternativas": [
+      "Reasoning loop and tools.",
+      "Pre-trained weights and fine-tuning.",
+      "Large context windows and vector databases.",
+      "Hardware acceleration and cloud APIs."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "AI agents differ from standalone AI models by having two key elements: a **reasoning loop**, which allows them to plan and evaluate steps iteratively, and access to **tools**, such as external APIs and databases.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A game developer wants to create a more realistic and engaging Non-Player Character (NPC) in their game. They envision an NPC that can engage in dynamic conversations, react to player actions, adapt their behavior, and exhibit unique personalities. Which layer of the Gen AI landscape would be most crucial in defining the behaviors and capabilities of these NPCs?",
+    "alternativas": [
+      "Model layer",
+      "Platform layer",
+      "Agent layer",
+      "Infrastructure layer"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Behaviors that react, plan, and adapt dynamically to a changing environment based on the player's actions require the autonomy and decision-making capabilities of the **Agent** layer.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A new organization wants to develop an AI agent that delivers personalized news to each user by learning their interests, filtering priorities, summarizing key information, and adapting over time. How would the Agent layer contribute to the functionality of this personalized news reader application?",
+    "alternativas": [
+      "The Agent layer would provide the underlying AI models for natural language processing.",
+      "The Agent layer would provide the infrastructure for storing and processing news.",
+      "The Agent layer would design the user interface of the news reader.",
+      "The Agent layer would define the specific tasks the AI performs, such as filtering articles, summarizing information, and making recommendations."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "The Agent layer defines the coordinated actions and tasks intelligently and personally for the user (such as filtering, summarizing, and recommending), acting at the operational core of the assistant's logic.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A travel agency wants to use an AI agent to help customers plan their vacations, book flights, and provide ongoing support. How would the Agent layer and the Application layer work together to create this AI-powered travel planning experience?",
+    "alternativas": [
+      "The Agent layer would provide the user interface, while the Application layer...",
+      "The Application layer would provide the computational resources...",
+      "The Agent layer would define the AI's capabilities (searching, booking, recommending), while the Application layer would provide the user-facing tools (website, app) to interact with the agent.",
+      "The Application layer would determine the specific tasks the agent can perform..."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The Agent layer is responsible for cognitive capabilities and task orchestration (searching flights, booking, making decisions). The Application layer is the user-facing front-end (app or website) that facilitates this interaction.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "You need an AI model to translate languages for your global e-commerce platform. You want a readily available high-performance solution and have a moderate budget. Which option on Vertex AI would be most suitable?",
+    "alternativas": [
+      "Custom model",
+      "Model Garden (pre-built models)",
+      "Building a model from scratch",
+      "Custom training on Compute Engine"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "For those with a moderate budget who need an immediately available (readily available), high-performance pre-trained model, Vertex AI's **Model Garden** is the recommended solution, housing a vast library of ready-to-use models.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "You are an experienced AI researcher developing a cutting-edge model for protein folding prediction. You need complete control over the model architecture and training process. Which option on Vertex AI would be most suitable?",
+    "alternativas": [
+      "Custom training",
+      "Pre-built models from Model Garden",
+      "Out-of-the-box Vertex AI Agent Builder",
+      "Standard Vertex AI Search and Conversation"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Experienced researchers who require complete absolute control over neural network architecture, hyperparameters, and training code must opt for **Custom Training** on Vertex AI.\\n",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "At which of the following stages in the generative AI development process do you need to consider infrastructure requirements if you are building on a platform that does not handle it for you? (Select All)",
+    "alternativas": [
+      "Data collection",
+      "Deployment",
+      "Model training",
+      "Model refinement",
+      "Model monitoring"
+    ],
+    "resposta_correta": "A, B, C, D, E",
+    "explicacao": "If you are building on a platform that does not handle infrastructure for you (such as on-premises environments), infrastructure requirements (storage, compute, networking) must be considered at every stage of the AI development lifecycle.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the purpose of Auto ML in Vertex AI?",
+    "alternativas": [
+      "To allow users to build and train AI models with minimal technical expertise.",
+      "To manage and monitor the performance of deployed AI models.",
+      "To provide pre-trained models for various use cases.",
+      "To automate the entire ML workflow from data preparation to deployment."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Auto ML in Vertex AI is designed to enable users to build and train high-quality models with minimal technical expertise and effort, removing the need to write complex training code or manually tune network hyperparameters.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What are GPUs and TPUs in the context of AI infrastructure?",
+    "alternativas": [
+      "Software applications for managing AI models.",
+      "Networking protocols.",
+      "Specialized processors designed for parallel processing in AI tasks.",
+      "Storage devices."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Graphical Processing Units (GPUs) and Tensor Processing Units (TPUs, developed by Google) are specialized hardware processors designed specifically for massive parallel processing, dramatically accelerating AI model training and inference.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Why is high-performance storage important for generative AI?",
+    "alternativas": [
+      "To automate the deployment and management of AI models.",
+      "To store and efficiently access the massive datasets used in AI training.",
+      "To ensure the responsible use of AI systems.",
+      "To provide a user-friendly interface."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Training generative AI models involves gigantic datasets (peta-scale). High-performance storage ensures extremely fast read/write (I/O) rates, preventing compute bottlenecks that would keep expensive processors (like GPUs/TPUs) idle.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements best describes Model Garden on Vertex AI?",
+    "alternativas": [
+      "A platform for managing and monitoring AI infrastructure.",
+      "A service designed for finding and deploying pre-trained AI models.",
+      "A service for discovering, customizing, and deploying pre-trained Google and third-party AI models.",
+      "A platform for developing AI models from scratch."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Model Garden on Vertex AI acts as a centralized catalog (\"one-stop shop\") where businesses can discover, customize (tune parameters and perform fine-tuning), and deploy both native Google models (such as the Gemini family) as well as open-source and third-party models (such as LLaMA and Claude).",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the role of MLOps in Vertex AI?",
+    "alternativas": [
+      "To learn how best to achieve a goal based on inputs and tools.",
+      "To provide physical hardware for the AI systems.",
+      "To automate, standardize, and manage the ML project lifecycle.",
+      "To allow users to interact with AI capabilities."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "MLOps (Machine Learning Operations) focuses on automating, standardizing, and managing the entire ML project lifecycle. It builds repeatable pipelines connecting model development to deployment, monitoring, and continuous updating, treating AI as a journey of continuous improvement rather than a single destination.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A medical device that analyzes patient data in real-time to provide immediate feedback to doctors during surgery. Would edge or cloud deployment be more suitable?",
+    "alternativas": [
+      "Edge deployment",
+      "Cloud deployment"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Life-threatening medical emergency scenarios require instant processing. Edge computing (local device) completely eliminates the network round-trip time to the cloud and mitigates the risk of internet connectivity interruption or loss.",
+    "tema": "Section 2.1: Google Cloud Gen AI Strengths",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A customer service chatbot for a large e-commerce website that handles millions of inquiries daily. Would edge or cloud deployment be more suitable?",
+    "alternativas": [
+      "Edge deployment",
+      "Cloud deployment"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "A chatbot managing millions of interactions requires elastic infrastructure capacity that only the cloud can deliver cost-effectively. The minor network latency involved (fractions of a second) is perfectly acceptable in this case.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A self-driving car that needs to make instant decisions to navigate traffic and avoid collisions. Would edge or cloud deployment be more suitable?",
+    "alternativas": [
+      "Edge deployment",
+      "Cloud deployment"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Autonomous vehicles require split-second decisions to avoid collisions. The network latency of sending camera and sensor images to the cloud for processing is unacceptable and dangerous, making local computing (Edge) mandatory.",
+    "tema": "Section 1.8: Google Foundation Models",
+    "referencia": {
+      "titulo": "Gemini no Google Cloud",
+      "url": "https://docs.cloud.google.com/gemini/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "A system that uses AI to analyze traffic patterns and optimize traffic flow in a smart city. Would edge or cloud deployment be more suitable?",
+    "alternativas": [
+      "Edge deployment",
+      "Cloud deployment"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Global, large-scale traffic pattern analysis involves centralizing massive historical data collected from across the entire urban network. Since it does not require microsecond responses to avoid an immediate obstacle, dense and scalable analytical processing is ideal for the cloud.",
+    "tema": "Section 2.1: Google Cloud Gen AI Strengths",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "You need a model that can generate realistic images from text descriptions for your new marketing campaign. You have some coding skills but you are running short on time. Which path would you choose?",
+    "alternativas": [
+      "Use a pre-trained API to generate images quickly.",
+      "Build a custom image generation model from scratch.",
+      "Fine-tune a pre-trained text-to-image model from Model Garden."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "When facing severe time constraints, the recommended strategy is to leverage existing AI advancements without reinventing the wheel. Calling a ready-to-use pre-trained API (like Imagen) delivers professional results instantly.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is Gemini Nano designed for?",
+    "alternativas": [
+      "Running complex AI models on high-performance cloud servers.",
+      "Deploying on edge devices like smartphones for on-device AI tasks.",
+      "Creating music and audio generation.",
+      "Processing massive databases in data centers."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Gemini Nano is the most efficient and lightweight model of the Gemini family, developed specifically by Google to execute locally (on-device) on smartphones and other low-power edge hardware, enabling ultra-fast offline processing.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Who is responsible for building and deploying custom AI agents and integrating AI capabilities into applications?",
+    "alternativas": [
+      "Developers",
+      "AI Practitioners",
+      "Business Leaders",
+      "Network Engineers"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Developers are primarily responsible for the technical coding of the end-user application layer, consuming AI APIs to integrate new computational features, build customized agents, and implement user interfaces.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the primary advantage of edge computing for AI applications?",
+    "alternativas": [
+      "Increased data storage capability.",
+      "Lower overall development cost.",
+      "Real-time responsiveness and reduced latency.",
+      "Reduced need for data pre-processing."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The fundamental advantage of edge computing is bringing processing closer to where data is generated (such as a smartphone or sensor). This drastically reduces latency and enables ultra-high-speed real-time interactive responsiveness.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Your marketing team needs to quickly generate engaging product descriptions for an upcoming e-commerce sale. Which approach is the most efficient way to achieve this?",
+    "alternativas": [
+      "Build a custom model from scratch.",
+      "Use a generative AI-powered application like Google Workspace with Gemini to draft descriptions.",
+      "Hire a copywriting team to manually write descriptions.",
+      "Fine-tune a pre-trained language model from Model Garden."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "For accelerated everyday text-focused productivity tasks (such as writing sales descriptions), the most agile and efficient approach is using enterprise tools with integrated AI (such as Gemini in Google Workspace/Docs) to instantly generate high-quality drafts.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A customer asks about your return policy. The LLM, drawing on its vast pre-existing knowledge base, understands the question and provides the response even though it hasn't received any specific training or examples of your company policies. What prompting technique is this?",
+    "alternativas": [
+      "Zero-shot prompting",
+      "One-shot prompting",
+      "Few-shot prompting"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "The \"Zero-shot\" technique occurs when we request a response from the model directly, without providing any prior examples or demonstrations. The model relies strictly on the general knowledge assimilated during its massive pre-training phase to answer.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You prompt the model with a few examples of customer inquiries and their ideal, effective responses. The output follows this formatting and pattern. What prompting technique is this?",
+    "alternativas": [
+      "Zero-shot prompting",
+      "One-shot prompting",
+      "Few-shot prompting"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Providing a small set of demonstrative examples (typically 2 to 5 cases) within the prompt body constitutes the \"Few-shot\" technique. This teaches the model which output structure, grammatical pattern, and behavioral rules it should mirror in the final response.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You prompt the model with a single example of a customer inquiry (e.g., questions about shipping times) along with its desired output. The model's response then follows the structure of this example. What prompting technique is this?",
+    "alternativas": [
+      "Zero-shot prompting",
+      "One-shot prompting",
+      "Few-shot prompting"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "The \"One-shot\" technique provides exactly one single sample of expected input and output to guide the format and behavior of the model. It is a balanced approach, ideal when the model only needs a visual formatting reference.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You are designing a language learning app and want to incorporate an AI tutor that can provide personalized feedback to students practicing their conversational skills. Which role prompt would be the most effective in guiding AI interaction with the students?",
+    "alternativas": [
+      "You are a helpful and encouraging language tutor who provides constructive feedback on conversational practice and grammatical exercises.",
+      "You are a robot program designed to assess language proficiency metrics.",
+      "You are a large language model built to help students learn a new language."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Instructing the model by defining an explicit persona of a \"helpful and encouraging tutor\" who provides \"constructive feedback\" guides the behavior, language level, and empathetic tone necessary for an engaging educational experience.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You are leading a virtual team meeting in Google Meet with colleagues located in different global time zones. Some attendees are struggling to understand the discussion due to language barriers or accents. How can Gemini assist in making the meeting more accessible?",
+    "alternativas": [
+      "Gemini can automatically summarize the discussion for those who missed the meeting.",
+      "Gemini can generate live translated captions with speaker identification, making it easier for everyone to follow along in real-time.",
+      "Gemini can provide translated summaries of the spoken conversation in the meeting chat box.",
+      "Gemini can automatically adjust the output volume of each speaker."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "To overcome accent or language barriers during an ongoing call, Gemini's feature that generates real-time translated captions with speaker identification ensures instant accessibility for all participants.",
+    "tema": "Seção 2.3: Melhoria da Experiência do Cliente (Improving Customer Experience)",
+    "referencia": {
+      "titulo": "Google Cloud Contact Center as a Service",
+      "url": "https://docs.cloud.google.com/contact-center/ccai-platform/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "Which prompting technique relies entirely on the foundation model's pre-existing training data and knowledge base, without receiving any structured examples?",
+    "alternativas": [
+      "Zero-shot prompting",
+      "One-shot prompting",
+      "Few-shot prompting"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "\"Zero-shot\" prompting relies entirely on the intrinsic capacity of the model to comprehend and solve the task directly. This demonstrates the high versatility and robustness of the massive pre-training of foundation models.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the main advantage of using role prompting in generative AI?",
+    "alternativas": [
+      "It improves the AI model's ability to understand complex structural programming.",
+      "It enables complex multi-step tasks like planning business itineraries.",
+      "It allows the AI model to learn from a set of examples provided by the developer.",
+      "It influences the style, tone, and focus of the AI response by assigning it a specific persona."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Role Prompting (Persona Prompting) allows shaping the response's stylistics (whether formal, technical, empathetic, or persuasive) by forcing the model to narrow down its semantic probability space based on the assigned persona.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You are drafting a business proposal for a new client and want to ensure your writing is clear, concise, and persuasive. How can Gemini in Google Docs assist you in this task?",
+    "alternativas": [
+      "Gemini in Docs can provide suggestions for improving your writing style, grammar, and tone, and even generate different phrasing options for your message.",
+      "Gemini in Docs can predict the client's response to your proposal based on their past corporate interactions.",
+      "Gemini in Docs can analyze your proposal's content and automatically generate relevant visuals like complex charts and graphs.",
+      "Gemini in Docs can automatically assign tasks to team members based on their roles."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Directly integrated into the Google Docs office suite, Gemini provides real-time contextual editorial support, improving style, conciseness, and grammar, while proposing sentence variations to boost the proposal's persuasiveness.",
+    "tema": "Section 2.1: Google Cloud Gen AI Strengths",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Grounding allows an AI model to connect its responses to specific, verifiable sources of information. Is this statement true or false?",
+    "alternativas": [
+      "True",
+      "False"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "True. Grounding is the act of anchoring the LLM's responses to real, specific, and enterprise data (e.g., via RAG), reducing the probability of semantic hallucination by forcing the model to query trusted knowledge bases before answering.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "NotebookLM can access and use information from the entire public internet to answer your queries. Is this statement true or false?",
+    "alternativas": [
+      "True",
+      "False"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "False. NotebookLM operates within a closed data ecosystem (sandbox/walled garden), designed to analyze, summarize, and answer questions exclusively based on the sources (PDFs, text, URLs) actively uploaded by the user.",
+    "tema": "Section 2.2: Prebuilt Gen AI Offerings",
+    "referencia": {
+      "titulo": "Gemini Enterprise",
+      "url": "https://docs.cloud.google.com/gemini/enterprise/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "You can use NotebookLM to create interactive quizzes based strictly on your uploaded documents. Is this statement true or false?",
+    "alternativas": [
+      "True",
+      "False"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "True. One of the standout features of NotebookLM's studio is its ability to synthesize provided sources and generate structured study guides, executive summaries, explanatory notes, and interactive self-assessment quizzes.",
+    "tema": "Section 1.6: Data Types & Quality",
+    "referencia": {
+      "titulo": "Data pipelines and analytics",
+      "url": "https://docs.cloud.google.com/docs/data?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "NotebookLM is best fitted for tasks like writing creative fiction stories and poems. Is this statement true or false?",
+    "alternativas": [
+      "True",
+      "False"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "False. NotebookLM was specifically engineered as a research, synthesis, and study tool grounded in real reference materials. For creating fictional stories or imaginative poetry without factual constraints, standard Gemini is far more suitable.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Grounding is a technical feature exclusive only to the NotebookLM product. Is this statement true or false?",
+    "alternativas": [
+      "True",
+      "False"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "False. Grounding is a broad software engineering and artificial intelligence architectural pattern used across the tech industry. Google utilizes grounding in Gemini Enterprise, enterprise search (Vertex AI Search), and APIs integrated with external databases.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "You are a freelance writer who specializes in creating different types of content (blogs, social media, copy) and frequently switch between different writing styles and tones depending on the project. You want to streamline your workflow and ensure consistency. Which feature of Gemini best fits your needs?",
+    "alternativas": [
+      "Gemini Saved Info",
+      "Gems (Custom Gems)",
+      "Deep Research",
+      "Google Cloud Platform"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "\"Gems\" (Custom Gems) in Gemini allow setting up and registering customized assistants with fixed style guidelines, structural rules, and formats for recurring writing workflows, optimizing quick transitions between corporate demands.",
+    "tema": "Section 2.2: Prebuilt Gen AI Offerings",
+    "referencia": {
+      "titulo": "Gemini Enterprise",
+      "url": "https://docs.cloud.google.com/gemini/enterprise/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "You are a product manager preparing for a meeting to discuss a new product launch. You have market research reports, competitive analyses, and customer feedback surveys stored in your Google Drive. How can NotebookLM help you prepare for this meeting?",
+    "alternativas": [
+      "NotebookLM can predict the exact questions your team members will ask.",
+      "NotebookLM can summarize the key findings from your documents, identify potential challenges, and provide talking points helping you to lead a productive meeting.",
+      "NotebookLM can automatically send calendar invites to all stakeholders.",
+      "NotebookLM can automatically generate a full slide presentation with slides and speaker notes."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "By importing all planning documents from your Google Drive into NotebookLM, you establish a factual base in which the tool consolidates fragmented data, correlates competitive insights, and extracts key talking points to guide your corporate meeting efficiently.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is a key advantage of using NotebookLM Business/Enterprise for organizations?",
+    "alternativas": [
+      "Google has automatic access to train its models on all your internal data.",
+      "NotebookLM Enterprise is exactly the same as the personal product version.",
+      "You can manage notebook access and security permissions using predefined Google Cloud IAM roles.",
+      "Google has total operational control over the content of your notebooks."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The architecture of NotebookLM Business/Enterprise ensures strict corporate governance through the Google Cloud IAM console. This gives IT administrators precise control over reading, writing, and sharing permissions for highly confidential commercial notebooks.",
+    "tema": "Section 4.2: Secure AI & Protecting Systems",
+    "referencia": {
+      "titulo": "IAM",
+      "url": "https://docs.cloud.google.com/iam/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "How does grounding improve the reliability of Gemini or Custom Gems?",
+    "alternativas": [
+      "It completely prevents Gemini from generating any inaccurate responses in all scenarios.",
+      "It connects the Gemini's output to specific, verifiable sources of information.",
+      "It enables Gemini to learn from user interactions over time and self-train.",
+      "It allows Gemini to access and process information from any public web page."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Grounding sensibly minimizes the data hallucination phenomenon, forcing Gemini's generative engine to fetch facts and answer questions utilizing uniquely the verified, referenced document corpus in its connected sources.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the primary advantage of using Saved Info in Gemini compared to copying and pasting prompts manually?",
+    "alternativas": [
+      "Saved Info allows you to store prompts in richer visual formats.",
+      "Saved Info ensures that specific background information like your role, preferences, or company details is consistently applied across all your Gemini interactions.",
+      "Saved Info is where you securely save your Gemini accounts passwords.",
+      "Saved Info automatically shares all prompts with your corporate contacts."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "By using \"Saved Info,\" the user defines persistent background guidelines that accompany and guide Gemini in any active conversation (e.g., who you are, your profession, your company sector, and preferred linguistic styles), bypassing the need to rewrite these contexts in every new chat.",
+    "tema": "Section 2.2: Prebuilt Gen AI Offerings",
+    "referencia": {
+      "titulo": "Gemini Enterprise",
+      "url": "https://docs.cloud.google.com/gemini/enterprise/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "What is the primary function of Retrieval-Augmented Generation (RAG) in AI models?",
+    "alternativas": [
+      "To enable the AI model to access and utilize external knowledge sources for generating outputs.",
+      "To replace human intervention in the AI model's output generation process.",
+      "To enhance the AI model's ability to memorize vast amounts of data in its training parameters.",
+      "To restrict the AI output to a predefined static set of hardcoded responses."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "RAG is the technical architecture that retrieves information from an external database or documents, injects this data as dynamic context into the user prompt, and utilizes the model's linguistic intelligence to generate extremely precise and updated responses.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements about Gemini for Google Cloud enterprise security model is true?",
+    "alternativas": [
+      "Customer data is encrypted in transit and at rest, and access controls are strictly in place.",
+      "Customer data is shared with third-party developers to improve performance.",
+      "Google controls access and permissions to the customer data.",
+      "Customer data is included in publicly accessible training datasets."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Under Google Cloud's strict guidelines, corporate operational data traversed in Gemini is encrypted in transit and at rest. Google guarantees complete data isolation: your queries are never saved to train public foundation models.",
+    "tema": "Section 4.2: Secure AI & Protecting Systems",
+    "referencia": {
+      "titulo": "IAM",
+      "url": "https://docs.cloud.google.com/iam/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "A team of developers wants to improve their coding efficiency and team collaboration. Which Gemini for Google Cloud tool would be most efficient for them?",
+    "alternativas": [
+      "Gemini Code Assist",
+      "Google Meet with Gemini",
+      "Vertex AI Model Garden",
+      "BigQuery Data Canvas"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "**Gemini Code Assist** drastically accelerates software team efficiency by integrating directly into local IDEs (such as VS Code or IntelliJ) to deliver intelligent code completion, function generation across multiple languages, and debugging and unit testing assistance.",
+    "tema": "Section 1.8: Google Foundation Models",
+    "referencia": {
+      "titulo": "Gemini no Google Cloud",
+      "url": "https://docs.cloud.google.com/gemini/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "Order the following agents in terms of technical innovation from the oldest (legacy/traditional) to the newest (latest innovation):",
+    "alternativas": [
+      "Generative Agents with RAG",
+      "Deterministic Agents",
+      "Generative Agents",
+      "A -> B -> C",
+      "B -> C -> A",
+      "C -> B -> A",
+      "B -> A -> C"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "The historical evolution of conversational agents starts with deterministic agents based on rigid structured rules (\"deterministic\"). Following that, purely LLM-based generative agents emerged that could respond fluidly. The current state-of-the-art are generative agents integrated with RAG architecture (\"Generative Agents with RAG\"), combining linguistic creativity with real-time data grounding.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "For the following scenario, determine which would be a better primary prompt technology, ReAct (Reasoning and Action) or CoT (Chain of Thought): \"Find a highly rated Italian restaurant nearby.\"",
+    "alternativas": [
+      "ReAct (Reasoning and Action)",
+      "CoT (Chain of Thought)",
+      "Neither of them",
+      "Traditional Machine Learning"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Requesting to find a highly rated Italian restaurant nearby requires an external action in the physical world (searching the web or a maps API) combined with analytical reasoning to select the best result. Therefore, **ReAct (Reasoning and Action)** technology is ideal, as it engages the external search loop.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "For the following scenario, determine which would be a better primary prompt technology, ReAct or CoT (Chain of Thought): \"Summarize a long article about history.\"",
+    "alternativas": [
+      "ReAct (Reasoning and Action)",
+      "CoT (Chain of Thought)",
+      "Standard direct prompt without reasoning",
+      "Reinforcement Learning"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "To summarize a long article provided directly to the model, there is no need for external interactions or web searches. The model needs to conduct internal structured analytical reasoning to distill the main points. Thus, **CoT (Chain of Thought)** is the best technical choice.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "For the following scenario, determine which would be a better primary prompt technology, ReAct or CoT (Chain of Thought): \"Brainstorming creative marketing ideas for a new campaign.\"",
+    "alternativas": [
+      "ReAct (Reasoning and Action)",
+      "CoT (Chain of Thought)",
+      "Deterministic template matching",
+      "Reinforcement Learning"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Brainstorming creative and innovative concepts is a purely idea-generating and internal logical chaining task. There is no need to fetch dynamic web data in real-time or call external APIs, justifying the use of **CoT (Chain of Thought)** to guide the model step-by-step in generating structured ideas.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "For the following scenario, determine which would be a better primary prompt technology, ReAct or CoT (Chain of Thought): \"Searching for a specific research paper on a particular scientific topic.\"",
+    "alternativas": [
+      "ReAct (Reasoning and Action)",
+      "CoT (Chain of Thought)",
+      "Standard Zero-shot prompting",
+      "Traditional Linear Regression"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Finding and accessing a specific research paper in an external database or on the internet requires a real search action and decision-making on search terms based on the returns. This is a classic use case for the **ReAct (Reasoning and Action)** technique.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Match the definitions of agent tools on Vertex AI with their correct terms:\n1. Connect to the external services via APIs (Conectar a serviços externos via APIs)\n2. Run data-specific actions like code execution (Executar ações específicas como rodar código)\n3. Add new skills and integrations (Adicionar novas habilidades e integrações)\n4. Provide access to business information and knowledge base (Fornecer acesso a dados empresariais e base de conhecimento)",
+    "alternativas": [
+      "1-Extensions, 2-Functions, 3-Plugins, 4-Data Store",
+      "1-Plugins, 2-Data Store, 3-Extensions, 4-Functions",
+      "1-Functions, 2-Extensions, 3-Data Store, 4-Plugins",
+      "1-Data Store, 2-Plugins, 3-Functions, 4-Extensions"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "In the Vertex AI Agents ecosystem, tools have distinct roles: **Extensions** link the model to external APIs; **Functions** (such as Cloud Functions or Cloud Run) run custom code; **Plugins** extend the agent's capabilities with new resources and third-party integrations; and **Data Store** provides the structured or unstructured database (e.g. Cloud Storage or BigQuery) for RAG.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following statements best describes the function of a reasoning loop within a generative AI agent?",
+    "alternativas": [
+      "It acts as a static script of hardcoded questions and answers.",
+      "It guides the agent through an iterative process of observation, internal reasoning, and decision-making to reach a goal.",
+      "It is responsible for training the foundation model on massive datasets.",
+      "It is a storage facility for holding system cache files."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Unlike a traditional chatbot based on a static decision flow, an AI agent has a **Reasoning Loop** that evaluates inputs iteratively (observation, internal thought about what action to take, tool usage, and re-evaluation) until the final goal is reached autonomously.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following scenarios best illustrates the concept of a multi-agent system in generative AI?",
+    "alternativas": [
+      "A single AI agent performing multiple tasks sequentially without using tools.",
+      "A developer utilizing different parameters within a single agent to test responses.",
+      "A system where multiple specialized AI agents collaborate (e.g., flight booking agent, hotel booking agent, and payment agent) to achieve a complex goal.",
+      "A chatbot that only answers user questions based on a fixed text file."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "A multi-agent system involves the cooperation of multiple autonomous and highly specialized agents. Each agent resolves a specific sub-task (such as flight search, hotel booking, or payment processing), and they collaborate in an orchestrated manner to deliver a unified and complex result to the user.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "Which parameter in the Google AI Studio would you adjust to control the randomness and creativity of the model's output?",
+    "alternativas": [
+      "Temperature",
+      "Top-K",
+      "Top-P",
+      "Max Output Tokens"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "The **Temperature** parameter controls the level of randomness and creativity in the model's responses. Higher values generate more diverse and creative answers (with higher risk of deviation), while lower values force the model to select the statistically most probable words, generating more stable and predictable outputs.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is the primary distinction between Google AI Studio and Vertex AI Studio?",
+    "alternativas": [
+      "Google AI Studio is designed for rapid prototyping and beginners, while Vertex AI Studio caters to enterprise-grade professionals and large-scale machine learning workflows.",
+      "Google AI Studio requires extensive coding skills, while Vertex AI Studio is a pure no-code tool.",
+      "Google AI Studio only generates images, while Vertex AI Studio only supports text-based models.",
+      "There is no distinction; they are simply different brand names for the exact same interface."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "**Google AI Studio** is the \"fast lane\" for developers and enthusiasts to quickly prototype ideas and rapidly test prompts. On the other hand, **Vertex AI Studio** is the full enterprise platform integrated with Google Cloud, offering robust MLOps, enterprise-grade security, fine-grained access control (IAM), and large-scale model management.",
+    "tema": "Section 4.2: Secure AI & Protecting Systems",
+    "referencia": {
+      "titulo": "IAM",
+      "url": "https://docs.cloud.google.com/iam/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "Match the three phases of RAG (Retrieval-Augmented Generation) with their correct descriptions:\n1. Retrieval\n2. Augmentation\n3. Generation\n\n- **X)** Adding context to the query by injecting retrieved information.\n- **Y)** Fetching relevant documents from an authoritative external knowledge base.\n- **Z)** Producing the final synthesized response.",
+    "alternativas": [
+      "1-Y, 2-X, 3-Z",
+      "1-X, 2-Y, 3-Z",
+      "1-Z, 2-X, 3-Y",
+      "1-Y, 2-Z, 3-X"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "The **RAG** workflow operates as follows: **1. Retrieval (Y):** Searches and fetches relevant document fragments from the external database; **2. Augmentation (X):** Couples/adds these fragments to the original user prompt; **3. Generation (Z):** The model processes this enriched prompt and generates the final response based exclusively on the provided facts.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Match the contact center solutions with their primary capabilities:\n1. Conversational Agents\n2. Agent Assist\n3. Conversational Insights\n\n- **X)** Supports live human agents in real-time with context, suggestions, and instant document search.\n- **Y)** Analyzes historical call records and chat transcripts to extract business trends and customer sentiment.\n- **Z)** Acts as intelligent automated chatbots or voice bots communicating directly with customers.",
+    "alternativas": [
+      "1-Z, 2-X, 3-Y",
+      "1-X, 2-Y, 3-Z",
+      "1-Y, 2-Z, 3-X",
+      "1-Z, 2-Y, 3-X"
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Google's customer service ecosystem has three pillars: **Conversational Agents (Z)** automate initial triage via chat or voice; **Agent Assist (X)** supports live human agents in real-time by suggesting answers and searching manuals; **Conversational Insights (Y)** analyzes historical interaction data to identify customer sentiment and bottlenecks.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "According to the provided information, how does a Large Language Model (LLM) interact with data stores in a Retrieval-Augmented Generation (RAG) workflow?",
+    "alternativas": [
+      "The LLM passively receives data updates pushed directly from the database without active querying.",
+      "The LLM actively queries the data store to retrieve relevant information based on the user's prompt, and enriches its response context with it.",
+      "The LLM permanently rewrites its own internal weights and base parameters using the data store contents.",
+      "The LLM only uses the data store as a temporary visual interface for the user."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "In the RAG workflow, the LLM does not connect passively nor permanently update its internal training weights. Instead, the system conducts an active semantic search in the database (**queries the data store**) based on the user's query, pulls the most relevant information, and appends it to the prompt for the model to generate a highly contextualized response.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "Which of the following options best identifies the key architectural components of a Generative AI Agent?",
+    "alternativas": [
+      "Custom graphics cards, web interfaces, and public training scrapers.",
+      "Database schemas, web browsers, and visual design editors.",
+      "A detailed user manual, pre-trained chatbots, and customer support centers.",
+      "Reasoning loop, Tools (extensions, functions, data stores), and a Foundation model."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "A Generative AI Agent is made up of three architectural pillars: the **Foundation Model** (the linguistic \"brain\"), the **Tools** (APIs, code functions, databases to fetch and execute external actions), and the **Reasoning Loop** (the mechanism that iteratively evaluates how to use the model and tools to achieve a goal).",
+    "tema": "Section 2.5: Tooling for Gen AI Agents",
+    "referencia": {
+      "titulo": "Vertex AI Agent Builder",
+      "url": "https://docs.cloud.google.com/agent-builder?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What are the key recommended steps for planning for impact when implementing Generative AI solutions?",
+    "alternativas": [
+      "Adopt the newest available model instantly and assume business success will naturally follow.",
+      "Prioritize high-performance hardware procurement without defining use cases.",
+      "Define key metrics, collect and analyze performance data, and continuously iterate and improve.",
+      "Replace all human operators immediately to cut down infrastructure costs."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "To achieve real business impact, Generative AI adoption must follow a rigorous method: define clear key metrics of success (KPIs), collect and analyze usage data to understand the delivered value, and adopt a continuous improvement process through feedback and refinement cycles.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the primary purpose of Gemini Enterprise within an organization?",
+    "alternativas": [
+      "To provide a centralized platform for organizing and accessing AI agents that can utilize company data to assist employees and enhance internal productivity.",
+      "To replace the local hardware servers of the organization with purely virtualized machines.",
+      "To build customized hardware accelerators like physical TPUs inside offices.",
+      "To function exclusively as a public-facing social media marketing manager."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "**Gemini Enterprise** delivers a centralized, secure, and governed environment for enterprises to develop, organize, and access custom AI agents. These agents privately consume corporate data repositories, boosting employee efficiency with absolute compliance.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the primary advantage of using a hybrid approach (combining deterministic and generative AI) when building conversational agents?",
+    "alternativas": [
+      "It completely eliminates the need for any customer support software.",
+      "It restricts responses strictly to hardcoded scripts, turning off all generative capacities.",
+      "It enables strict control over the agent's behavior (deterministic) while leveraging the flexibility and natural language of generative AI.",
+      "It reduces the overall latency of the application to absolute zero."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The **hybrid approach** represents the \"best of both worlds\" in corporate customer service: it guarantees that strict business rules and critical compliance flows are rigidly controlled in a deterministic manner, while leveraging the flexibility and natural dialogue capability of Generative AI to handle user linguistic variations.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "An HR department deploys a generative AI model to screen job applications and provide a shortlist. Recruiters notice that seemingly qualified candidates are consistently being overlooked, but the AI provides no explanation for its rankings. The company needs to address this lack of transparency. What should they do?",
+    "alternativas": [
+      "Collect a larger and more diverse dataset to retrain the model.",
+      "Fine-tune the model to match recruiter biases more closely.",
+      "Adopt an Explainable AI (XAI) framework to generate understandable reasoning along with the model's outputs.",
+      "Perform a fairness assessment only on demographic parity."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "When a Generative AI model acts as a black box without providing justifications for its selections, the ideal solution is to adopt an **Explainable AI (XAI)** architecture. This ensures the model outputs explicit reasons and decision weights for its actions, increasing the process's transparency and compliance.",
+    "tema": "Section 4.3: Responsible AI & Explainability",
+    "referencia": {
+      "titulo": "Vertex Explainable AI",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A company is evaluating the use of Large Language Models (LLMs) to enhance operations and customer interactions. What is the primary characteristic of an LLM?",
+    "alternativas": [
+      "LLMs excel in highly specific, single technical tasks without any fine-tuning.",
+      "LLMs learn and generalize effectively using only small, restricted datasets.",
+      "LLMs have strong inherent logical reasoning and problem-solving abilities without any prompt guidance.",
+      "LLMs are trained on vast datasets, enabling broad language and context understanding, and adaptability across many tasks."
+    ],
+    "resposta_correta": "D",
+    "explicacao": "The main strength of **Large Language Models (LLMs)** lies in the fact that they are trained on colossal and diverse volumes of text (massive datasets). This gives them a deep understanding of semantics, grammar, and context, allowing them to adapt to hundreds of distinct tasks through simple textual instructions.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "An AI robot learns optimal package delivery routes in a city. It receives positive scores for successful, fast deliveries and negative scores for delayed deliveries or accidents. Which machine learning methodology is this?",
+    "alternativas": [
+      "Supervised Learning",
+      "Unsupervised Learning",
+      "Semi-supervised Learning",
+      "Reinforcement Learning"
+    ],
+    "resposta_correta": "D",
+    "explicacao": "**Reinforcement Learning** operates based on a \"Trial and Error\" loop. An agent interacts with a dynamic environment and learns the best action policies by receiving positive rewards (for success) and negative penalties (for failures/delays), optimizing its behavior over time.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A company wants to use generative AI to automate complex workflows and improve decision-making across departments. They are considering implementing AI agents. What is the primary function of an AI agent in a generative AI system?",
+    "alternativas": [
+      "To provide physical TPU processing power for the training step.",
+      "To act as a static front-end user interface for text input.",
+      "To act as a smart system that can iteratively analyze, use external tools, and make decisions to reach specific goals.",
+      "To serve as a high-capacity storage drive for unstructured logs."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "**AI Agents** differ from simple language models due to their capability to act autonomously: they receive a high-level goal, reason about how to break it down into steps, decide when to call tools (such as searching or reading files), and make iterative decisions to complete the task.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "An advertising agency needs to quickly generate many photorealistic images for client campaigns because traditional photo shoots are slow and costly. Which Google foundation model should they use?",
+    "alternativas": [
+      "Gemini",
+      "Gemma",
+      "Veo",
+      "Imagen"
+    ],
+    "resposta_correta": "D",
+    "explicacao": "For fast generation and editing of high-fidelity, aesthetically pleasing photorealistic images from textual descriptive prompts, the ideal Google Cloud tool is the **Imagen** model.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A company is planning to integrate generative AI but is wary of becoming dependent on a single technology provider (vendor lock-in). They prioritize the ability to choose and integrate different tools and models. Which inherent characteristic of Google Cloud's AI approach addresses this concern?",
+    "alternativas": [
+      "Openness approach (integration of third-party and open models alongside Google's proprietary models).",
+      "High proprietary tightness (forcing all systems to compile into a single strict Google binary).",
+      "Fully isolated local-only execution with no API connectivity.",
+      "Static licensing agreements that prevent switching models."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Google Cloud adopts an **Openness** philosophy: through Vertex AI, the company allows customers to use not only Google's proprietary models (like Gemini) but also partner models (like Claude) and open-weight models (like Llama) on the same unified panel, mitigating the risk of technology lock-in.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A consulting research team needs to analyze multiple lengthy reports and documents to find key trends and make client recommendations. They need to quickly understand each document, link information sources, and organize insights. Which Google Cloud offering is designed for this task?",
+    "alternativas": [
+      "Vertex AI Search",
+      "NotebookLM",
+      "Gemini Code Assist",
+      "BigQuery Data Canvas"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "**NotebookLM** is a custom virtual research assistant that allows users to upload their own files and private notes, delivering extremely accurate syntheses, audio summaries, and answers based solely on those sources with exact source citations.",
+    "tema": "Section 2.2: Prebuilt Gen AI Offerings",
+    "referencia": {
+      "titulo": "Gemini Enterprise",
+      "url": "https://docs.cloud.google.com/gemini/enterprise/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "A grocery store chain has sales, inventory, and marketing data scattered across several internal systems. Employees waste time searching for product and campaign information. They need a centralized way to easily access and understand data across all systems. Which Google Cloud offering should they use?",
+    "alternativas": [
+      "Dialogflow CX",
+      "Gemini Enterprise",
+      "Vertex AI Search and Conversation",
+      "Gemini Code Assist"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "**Gemini Enterprise** delivers the corporate capability to integrate legacy systems, file repositories, and internal databases into a unified ecosystem, allowing employees to query fragmented data through natural language with robust security.",
+    "tema": "Section 4.2: Secure AI & Protecting Systems",
+    "referencia": {
+      "titulo": "IAM",
+      "url": "https://docs.cloud.google.com/iam/docs?hl=pt_br"
+    }
+  },
+  {
+    "enunciado": "A tech company has separate teams using different tools for their machine learning projects, causing duplicate work and scaling issues. They need a centralized platform to develop, deploy, and manage all their AI models and workflows. Which Google Cloud platform addresses this?",
+    "alternativas": [
+      "Cloud Functions",
+      "Vertex AI",
+      "BigQuery ML",
+      "Google App Engine"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "**Vertex AI** is Google Cloud's end-to-end MLOps platform. It unifies development (notebooks), training, model management (Model Registry), deployment in endpoints, and continuous monitoring in a single scalable interface for the entire enterprise.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A software company's chatbot struggles to answer customer questions about recently released product features because this information was not in its original training data. Support agent workloads have increased due to incorrect answers. The company wants the chatbot to use the latest documentation without retraining the model. What should they do?",
+    "alternativas": [
+      "Increase the parameter count of the base LLM.",
+      "Retrain the base foundation model from scratch with the new documentation.",
+      "Implement Grounding (using RAG) to connect the chatbot to the latest product documents.",
+      "Convert the chatbot into a purely deterministic rule-based script."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "To provide precise answers about new products without spending millions of dollars and weeks retraining the model, the company must use **Grounding (RAG)**. This dynamically injects information from the updated manual into the bot prompt, ensuring correct and real-time responses.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A business analyst asks a generative AI model about the quarterly revenue of a small startup. The model confidently provides specific revenue figures and references a press release. However, further investigation reveals the startup has never released financial reports and the press release does not exist. What limitation of Large Language Models does this illustrate?",
+    "alternativas": [
+      "Bias",
+      "Data scarcity",
+      "Underfitting",
+      "Hallucination"
+    ],
+    "resposta_correta": "D",
+    "explicacao": "**Hallucination** is the limitation where an LLM generates factually incorrect information, fabricated data, or fake citations in an extremely fluid, convincing, and confident manner, stemming from its probabilistic nature of predicting words.",
+    "tema": "Section 4.3: Responsible AI & Explainability",
+    "referencia": {
+      "titulo": "Vertex Explainable AI",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A generative AI tool that answers employee policy questions is providing outdated and inaccurate information. The company wants the tool to give reliable answers based on the latest official documents without retraining the model. What should they use?",
+    "alternativas": [
+      "Fine-tuning on custom cloud infrastructure.",
+      "Zero-shot prompting with larger input windows.",
+      "Grounding (RAG) to link the tool's queries to the latest policy documents.",
+      "Traditional linear regression models."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "**Grounding** allows connecting Generative AI queries directly to active corporate databases. This eliminates the need for complex retraining or fine-tuning processes every time an internal company policy is updated.",
+    "tema": "Section 3.3: Prompt Engineering Techniques",
+    "referencia": {
+      "titulo": "Prompt Design",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/learn/introduction-prompt-design?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A sales team wants to quickly create dynamic and personalized video pitches for potential clients based on textual customer information. Which Google Cloud generative AI model is designed for video generation?",
+    "alternativas": [
+      "Imagen",
+      "Gemini",
+      "Veo",
+      "Chirp"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "**Veo** is Google's state-of-the-art generative video model, specifically designed to convert textual descriptions and images into high-definition cinematic videos with consistent motion.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A growing retail company with fragmented phone, email, and basic website chat support needs a unified cloud solution to streamline customer experience and security. Which Google Cloud offering should they use?",
+    "alternativas": [
+      "Google Cloud Functions",
+      "Contact Center AI (CCAI)",
+      "Vertex AI Model Registry",
+      "Cloud Bigtable"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "**Contact Center AI (CCAI)** is Google Cloud's integrated solution that unifies phone, email, and chat channels into an intelligent support hub, delivering fluid self-service with conversational AI and predictive intelligence to assist human agents.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "What is a key benefit of using Gemini Enterprise for knowledge workers in a large organization?",
+    "alternativas": [
+      "It automates the provisioning of physical network firewall hardware.",
+      "It restricts employee access strictly to local offline databases.",
+      "It allows employees to search, find, and use internal scattered company information more easily by creating custom AI agents that can access and understand the data.",
+      "It is designed exclusively for compiling and building mobile operating systems."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The main benefit of **Gemini Enterprise** for knowledge workers is breaking corporate data silos. Through secure, custom AI agents, employees can quickly, safely, and directly search, structure, and analyze scattered reports within their daily workflow.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the defining characteristic of Reinforcement Learning (RL) in machine learning?",
+    "alternativas": [
+      "The model learns to map input data directly to predefined textual tags provided by humans.",
+      "The model finds hidden underlying structures or clusters in unlabeled data.",
+      "The model learns optimal behaviors by interacting with an environment and receiving feedback through rewards or penalties.",
+      "The model uses linear equations to predict continuous future numerical trends."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "In **Reinforcement Learning**, the model (called an agent) does not receive direct right answers initially, but learns to maximize its long-term performance by taking actions in a dynamic environment and receiving reward or penalty signals as feedback.",
+    "tema": "Section 1.2: Machine Learning Approaches",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A company is developing a system to automatically categorize customer support emails. They have thousands of past emails that have been manually reviewed and tagged with categories like \"Billing\" or \"Technical Support.\" What type of data is this?",
+    "alternativas": [
+      "Unstructured raw data",
+      "Unlabeled data",
+      "Labeled data",
+      "Synthetic data"
+    ],
+    "resposta_correta": "C",
+    "explicacao": "Data that has been previously associated with a specific category or \"tag\" by human specialists (such as classifying emails under specific terms) is technically classified as **Labeled Data**, which serves as the foundation for Supervised Learning algorithms.",
+    "tema": "Section 1.2: Machine Learning Approaches",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "What is the technical definition of a Generative AI model?",
+    "alternativas": [
+      "A physical database server dedicated only to compiling user logs.",
+      "A complex mathematical algorithm trained on vast datasets to learn underlying patterns and relationships, and use that knowledge to generate new content.",
+      "A static rules-based decision tree that cannot learn from new data.",
+      "An internet-facing web browser designed only to parse text-based HTML files."
+    ],
+    "resposta_correta": "B",
+    "explicacao": "A **Generative AI Model** is, in essence, a complex mathematical algorithm trained on gigantic volumes of data to map the statistical distributions and relationship patterns between information, generating new and novel data based on what it learned.",
+    "tema": "Section 1.1: Fundamentals of Gen AI Concepts",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A video game company created a virtual reality game with virtual characters that can interact with users in a highly natural, conversational, and intuitive way. What type of generative AI agent is this?",
+    "alternativas": [
+      "Workflow Agent",
+      "Code Agent",
+      "Data Agent",
+      "Conversational Agent"
+    ],
+    "resposta_correta": "D",
+    "explicacao": "Agents focused on interacting verbally or textually in a natural, fluid, and continuous manner with humans, mimicking real dialectical and language behaviors, are classified as **Conversational Agents**.",
+    "tema": "Section 3.4: Grounding Techniques & Sampling",
+    "referencia": {
+      "titulo": "Grounding overview",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
+    }
+  },
+  {
+    "enunciado": "A software company has developers who need to write, review, debug, and generate code from natural language descriptions using generative AI. Which type of agent should they implement?",
+    "alternativas": [
+      "Data Analyst Agent",
+      "Code Agent",
+      "Workflow Agent",
+      "Operational Security Agent"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "For tasks focused on the software development lifecycle (snippet generation, language translation, writing unit tests, and debugging source code errors), the ideal agent is a **Code Agent**.",
+    "tema": "Section 1.3: Machine Learning Lifecycle",
+    "referencia": {
+      "titulo": "Vertex AI Serverless Training",
+      "url": "https://docs.cloud.google.com/vertex-ai/docs/training/overview?hl=pt"
+    }
+  },
+  {
+    "enunciado": "An advertising agency needs to quickly generate many high-quality, photorealistic images from textual descriptions for a marketing campaign. Which Google foundation model should they use?",
+    "alternativas": [
+      "Veo",
+      "Imagen",
+      "Gemini",
+      "Chirp"
+    ],
+    "resposta_correta": "B",
+    "explicacao": "Google's **Imagen** model is specialized in processing and creating visual assets (very high-fidelity photorealistic images), ideal for advertising agencies to scale their creative production of graphics and artwork mockups.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A research scientist wants to use Veo to visualize live, fluctuating data streams on a real-time dashboard. Why would Veo be a poor choice for this particular task?",
+    "alternativas": [
+      "Veo generates video from static inputs (like text or images) and requires processing time, making it unable to visualize live, dynamically streaming data instantly in real-time.",
+      "Veo lacks any advanced scientific visual visualization styles.",
+      "Veo is designed exclusively for short-form, mobile-only social media videos.",
+      "Veo requires highly specialized local physical servers that cannot connect to dashboards."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Video generation models like **Veo** operate asynchronously (processing static text or image prompts for several seconds to generate stable video frames). They do not possess ultra-low-latency architectures to render dynamic streaming data in real-time like dynamic data dashboards do.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A company sells custom-defined phone cases on their website. How should the Imagen model be effectively used to enhance this user experience?",
+    "alternativas": [
+      "To generate realistic images of phone cases on physical devices based on textual descriptions of designs.",
+      "To analyze text reviews from customers and predict inventory demand.",
+      "To transcribe client voice messages into text support tickets.",
+      "To automatically send marketing emails with text templates."
+    ],
+    "resposta_correta": "A",
+    "explicacao": "Integrating **Imagen** into e-commerce allows customers to describe their ideal designs in text (e.g., \"astronaut cat in a blue suit\") and instantly see a high-quality photorealistic image of how that case will look applied on a phone before checking out.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A company lacks extensive in-house machine learning and AI expertise. How does Google Cloud democratize AI for such businesses?",
+    "alternativas": [
+      "By offering exclusive access to models only for very high-spending enterprises.",
+      "By providing fully automated AI solutions that require zero technical inputs or domain guidance from users.",
+      "By providing a comprehensive AI platform (Vertex AI) with low-code/no-code tools, pre-trained models, and easy-to-use APIs.",
+      "By building and deploying custom AI solutions for free to all companies worldwide."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "The **democratization of AI** driven by Google Cloud lies in enabling any company to utilize advanced AI. Through Vertex AI, businesses without highly specialized data scientists can use No-Code/Low-Code tools (such as AutoML), cutting-edge pre-trained models (Model Garden), and simple API calls to build solutions.",
+    "tema": "Section 1.7: Core Layers of Gen AI Landscape",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  },
+  {
+    "enunciado": "A marketing team is brainstorming creative ideas for a new social media campaign. They want to quickly generate taglines and initial post drafts to explore different angles. They need a tool that allows for rapid content creation with no complex setup. What should the team do?",
+    "alternativas": [
+      "Upload all target audience files into a Vertex AI custom neural pipeline.",
+      "Use NotebookLM to analyze competitor finance sheets.",
+      "Use the Gemini App to quickly generate taglines and draft social media posts to brainstorm and experiment.",
+      "Build a custom image-to-text generation pipeline from scratch."
+    ],
+    "resposta_correta": "C",
+    "explicacao": "For rapid brainstorming, accelerated slogan creation, and agile tests without complex technical configurations of APIs or cloud deployments, using the **Gemini App** directly is the fastest and most agile approach for creative teams.",
+    "tema": "Section 1.5: Generative AI Business Use Cases",
+    "referencia": {
+      "titulo": "AI and ML on Google Cloud",
+      "url": "https://docs.cloud.google.com/docs/ai-ml?hl=pt-br"
+    }
+  }
+]
