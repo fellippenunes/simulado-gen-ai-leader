@@ -11,7 +11,7 @@ import db
 LETTER_PREFIX_RE = re.compile(r'^[A-Za-z]\)\s*')
 CITATION_MARKER_RE = re.compile(r'\s*\[\d+(?:,\s*\d+)*\]')
 QUESTION_VERSION = "English Version"
-SESSION_TIMEOUT_SECONDS = 60 * 60  # 60 minutes since login
+SESSION_TIMEOUT_SECONDS = 10 * 60  # 10 minutes of inactivity (paused while an exam is in progress)
 
 # Set Page Config — sidebar starts collapsed once an exam is in progress
 st.set_page_config(
@@ -667,7 +667,7 @@ def render_login_form():
                 st.session_state["username"] = user["username"]
                 st.session_state["name"] = user.get("display_name") or user["username"]
                 st.session_state["user_id"] = user["id"]
-                st.session_state["login_time"] = time.time()
+                st.session_state["last_activity_time"] = time.time()
                 st.rerun()
             else:
                 st.error(message)
@@ -677,17 +677,25 @@ def run():
     apply_theme()
 
     if st.session_state.get("authentication_status"):
-        login_time = st.session_state.get("login_time", 0)
-        if time.time() - login_time > SESSION_TIMEOUT_SECONDS:
-            for key in ("authentication_status", "username", "name", "user_id", "login_time"):
-                st.session_state.pop(key, None)
-            reset_exam_progress()
-            st.session_state["session_expired_notice"] = True
-            st.rerun()
+        in_active_exam = st.session_state.get("exam_started", False) and not st.session_state.get("submitted", False)
+
+        if in_active_exam:
+            # The exam's own countdown governs this phase — keep pushing the
+            # inactivity clock forward so it only starts once the exam ends.
+            st.session_state["last_activity_time"] = time.time()
+        else:
+            last_activity = st.session_state.get("last_activity_time", time.time())
+            if time.time() - last_activity > SESSION_TIMEOUT_SECONDS:
+                for key in ("authentication_status", "username", "name", "user_id", "last_activity_time"):
+                    st.session_state.pop(key, None)
+                reset_exam_progress()
+                st.session_state["session_expired_notice"] = True
+                st.rerun()
+            st.session_state["last_activity_time"] = time.time()
 
         with st.sidebar:
             if st.button("Sair"):
-                for key in ("authentication_status", "username", "name", "user_id", "login_time"):
+                for key in ("authentication_status", "username", "name", "user_id", "last_activity_time"):
                     st.session_state.pop(key, None)
                 reset_exam_progress()
                 st.rerun()
