@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-import os
 import random
 import re
 import time
@@ -11,13 +10,15 @@ import db
 
 LETTER_PREFIX_RE = re.compile(r'^[A-Za-z]\)\s*')
 CITATION_MARKER_RE = re.compile(r'\s*\[\d+(?:,\s*\d+)*\]')
+QUESTION_VERSION = "English Version"
+SESSION_TIMEOUT_SECONDS = 60 * 60  # 60 minutes since login
 
-# Set Page Config
+# Set Page Config — sidebar starts collapsed once an exam is in progress
 st.set_page_config(
     page_title="Google Cloud Gen AI Leader - Practice Exam Simulator",
     page_icon="☁️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed" if st.session_state.get("exam_started") else "expanded",
 )
 
 GOOGLE_COLORS = ["#4285F4", "#EA4335", "#FBBC04", "#34A853"]
@@ -180,6 +181,13 @@ def build_brand_css() -> str:
             padding: 16px 18px;
         }
 
+        [data-testid="stRadio"] > div {
+            gap: 16px;
+        }
+        [data-testid="stRadio"] label {
+            padding: 6px 0;
+        }
+
         .user-badge {
             display: inline-block;
             background-color: rgba(66, 133, 244, 0.15);
@@ -214,15 +222,6 @@ def render_brand_header(subtitle: str | None = None):
 
 def render_user_badge(username: str):
     st.sidebar.markdown(f'<div class="user-badge">👤 Logado como: {username}</div>', unsafe_allow_html=True)
-
-
-# Helper function to load JSON questions
-@st.cache_data
-def load_questions(filename):
-    if os.path.exists(filename):
-        with open(filename, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return []
 
 
 def reset_exam_progress():
@@ -385,23 +384,9 @@ def render_exam_tab(username, user_id):
     # Sidebar Options
     st.sidebar.header("⚙️ Configurações do Simulado")
 
-    # Check for available JSON files
-    json_options = {}
-    if os.path.exists("simulado-genai-127-english.json"):
-        json_options["English Version"] = "simulado-genai-127-english.json"
-    if os.path.exists("simulado-genai-127.json"):
-        json_options["Bilingual (PT/EN) Version"] = "simulado-genai-127.json"
-
-    if not json_options:
-        st.error("❌ No question files found! Please make sure 'simulado-genai-127-english.json' or 'simulado-genai-127.json' are present in the app folder.")
-        return
-
-    selected_version = next(iter(json_options))
-    questions_file = json_options[selected_version]
-
-    raw_questions = load_questions(questions_file) + db.get_questions_by_version(selected_version)
+    raw_questions = db.get_questions_by_version(QUESTION_VERSION)
     if not raw_questions:
-        st.warning("No questions loaded. Please check the JSON format.")
+        st.warning("Nenhuma questão encontrada no banco de dados.")
         return
 
     # Extract Unique Topics for Filtering
@@ -492,7 +477,7 @@ def render_exam_tab(username, user_id):
     active_topic = st.session_state.get("exam_topic", selected_topic)
 
     if st.session_state.get("submitted"):
-        render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, selected_version, active_topic)
+        render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, QUESTION_VERSION, active_topic)
     else:
         col_timer, col_end = st.columns([4, 1])
         with col_timer:
@@ -580,18 +565,8 @@ def render_admin_tab(username):
         "`tema` e `referencia`."
     )
 
-    version_options = []
-    if os.path.exists("simulado-genai-127-english.json"):
-        version_options.append("English Version")
-    if os.path.exists("simulado-genai-127.json"):
-        version_options.append("Bilingual (PT/EN) Version")
-    if not version_options:
-        version_options = ["English Version"]
-
-    target_version = st.selectbox("A quais questões estas novas perguntas devem se juntar?", version_options)
-
-    existing_count = len(db.get_questions_by_version(target_version))
-    st.caption(f"Atualmente há {existing_count} questão(ões) adicionada(s) manualmente para '{target_version}'.")
+    existing_count = len(db.get_questions_by_version(QUESTION_VERSION))
+    st.caption(f"Atualmente há {existing_count} questão(ões) no banco de questões.")
 
     uploaded_file = st.file_uploader("Arquivo JSON", type="json")
     if uploaded_file is None:
@@ -618,8 +593,8 @@ def render_admin_tab(username):
         if missing:
             errors.append(f"Questão {i + 1}: campos ausentes {sorted(missing)}")
             continue
-        if not isinstance(q["alternativas"], list) or not q["alternativas"]:
-            errors.append(f"Questão {i + 1}: 'alternativas' deve ser uma lista não vazia")
+        if not isinstance(q["alternativas"], list) or len(q["alternativas"]) < 4:
+            errors.append(f"Questão {i + 1}: 'alternativas' deve ter pelo menos 4 opções")
             continue
         q["alternativas"] = [
             CITATION_MARKER_RE.sub('', LETTER_PREFIX_RE.sub('', opt)).strip() for opt in q["alternativas"]
@@ -647,8 +622,8 @@ def render_admin_tab(username):
         st.markdown(f"- **{q['enunciado']}** _(tema: {q.get('tema', 'General')})_")
 
     if st.button(f"✅ Confirmar importação de {len(valid_questions)} questão(ões)"):
-        count = db.insert_questions(target_version, valid_questions, username)
-        st.success(f"{count} questão(ões) adicionada(s) com sucesso a '{target_version}'!")
+        count = db.insert_questions(QUESTION_VERSION, valid_questions, username)
+        st.success(f"{count} questão(ões) adicionada(s) com sucesso ao banco de questões!")
 
 
 MIN_PASSWORD_LENGTH = 8
@@ -692,6 +667,7 @@ def render_login_form():
                 st.session_state["username"] = user["username"]
                 st.session_state["name"] = user.get("display_name") or user["username"]
                 st.session_state["user_id"] = user["id"]
+                st.session_state["login_time"] = time.time()
                 st.rerun()
             else:
                 st.error(message)
@@ -701,14 +677,26 @@ def run():
     apply_theme()
 
     if st.session_state.get("authentication_status"):
+        login_time = st.session_state.get("login_time", 0)
+        if time.time() - login_time > SESSION_TIMEOUT_SECONDS:
+            for key in ("authentication_status", "username", "name", "user_id", "login_time"):
+                st.session_state.pop(key, None)
+            reset_exam_progress()
+            st.session_state["session_expired_notice"] = True
+            st.rerun()
+
         with st.sidebar:
             if st.button("Sair"):
-                for key in ("authentication_status", "username", "name", "user_id"):
+                for key in ("authentication_status", "username", "name", "user_id", "login_time"):
                     st.session_state.pop(key, None)
                 reset_exam_progress()
                 st.rerun()
         main()
         return
+
+    if st.session_state.pop("session_expired_notice", False):
+        st.toast("⏰ Sessão Expirada. Efetue novamente o login.", icon="⏰")
+        st.warning("**Sessão Expirada. Efetue novamente o login.**")
 
     render_brand_header("Faça login ou crie uma conta para começar a estudar.")
 
