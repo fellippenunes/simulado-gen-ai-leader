@@ -28,6 +28,35 @@ def topic_color(topic: str) -> str:
     return GOOGLE_COLORS[sum(ord(c) for c in topic) % len(GOOGLE_COLORS)]
 
 
+def draw_varied_exam(pool: list, num_questions: int) -> list:
+    """Randomly samples num_questions from pool, then orders them to spread
+    domains ("tema") out as evenly as possible, avoiding two consecutive
+    questions from the same domain whenever the mix of domains allows it."""
+    sample = list(pool)
+    random.shuffle(sample)
+    sample = sample[:num_questions]
+
+    groups = {}
+    for q in sample:
+        groups.setdefault(q.get("tema", "General"), []).append(q)
+    for group in groups.values():
+        random.shuffle(group)
+
+    ordered = []
+    last_topic = None
+    while any(groups.values()):
+        candidates = sorted(
+            (t for t, g in groups.items() if g),
+            key=lambda t: len(groups[t]),
+            reverse=True,
+        )
+        pick_topic = next((t for t in candidates if t != last_topic), candidates[0])
+        ordered.append(groups[pick_topic].pop())
+        last_topic = pick_topic
+
+    return ordered
+
+
 def parse_correct_indices(resposta_correta: str) -> set[int]:
     """Parses "A", "A, C", "A,B,C" etc. into a set of 0-based option indices."""
     letters = [part.strip().upper() for part in (resposta_correta or "").split(",")]
@@ -454,9 +483,7 @@ def render_exam_tab(username, user_id):
         exam_minutes = exam_duration_seconds // 60
         st.sidebar.caption(f"⏱️ Tempo do simulado: {exam_minutes} minutos")
         if st.sidebar.button("🚀 Iniciar Simulado"):
-            pool = list(filtered_questions)
-            random.shuffle(pool)
-            st.session_state["current_exam"] = pool[:num_questions]
+            st.session_state["current_exam"] = draw_varied_exam(filtered_questions, num_questions)
             st.session_state["answers"] = {}
             st.session_state["current_q_idx"] = 0
             st.session_state["checked"] = False
@@ -513,19 +540,27 @@ def render_progress_tab(username):
     st.subheader("📈 Evolução da nota")
     st.line_chart(df.set_index("created_at")["score_pct"])
 
-    st.subheader("🎯 Desempenho médio por tópico")
-    topic_rows = []
+    st.subheader("🎯 Desempenho por Domínio")
+    domain_totals = {}
     for _, row in df.iterrows():
         for topic, scores in (row["topic_scores"] or {}).items():
-            if scores.get("total"):
-                topic_rows.append({
-                    "topic": topic,
-                    "pct": scores["correct"] / scores["total"] * 100,
-                })
-    if topic_rows:
-        topic_df = pd.DataFrame(topic_rows)
-        topic_avg = topic_df.groupby("topic")["pct"].mean().sort_values(ascending=False)
-        st.bar_chart(topic_avg)
+            totals = domain_totals.setdefault(topic, {"correct": 0, "total": 0})
+            totals["correct"] += scores.get("correct", 0)
+            totals["total"] += scores.get("total", 0)
+
+    if domain_totals:
+        sorted_domains = sorted(
+            domain_totals.items(),
+            key=lambda item: (item[1]["correct"] / item[1]["total"]) if item[1]["total"] else 0,
+            reverse=True,
+        )
+        for topic, scores in sorted_domains:
+            t_correct = scores["correct"]
+            t_total = scores["total"]
+            t_pct = (t_correct / t_total * 100) if t_total else 0
+            st.write(f"**{topic}**")
+            st.progress(t_pct / 100)
+            st.caption(f"{t_correct} de {t_total} corretas ({t_pct:.1f}%)")
 
     st.subheader("🗂️ Histórico completo")
     history = df[["created_at", "mode", "total_questions", "correct_count", "score_pct"]].sort_values(
