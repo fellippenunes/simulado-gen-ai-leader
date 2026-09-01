@@ -27,6 +27,12 @@ def topic_color(topic: str) -> str:
     return GOOGLE_COLORS[sum(ord(c) for c in topic) % len(GOOGLE_COLORS)]
 
 
+def parse_correct_indices(resposta_correta: str) -> set[int]:
+    """Parses "A", "A, C", "A,B,C" etc. into a set of 0-based option indices."""
+    letters = [part.strip().upper() for part in (resposta_correta or "").split(",")]
+    return {ord(letter) - 65 for letter in letters if len(letter) == 1 and letter.isalpha()}
+
+
 def build_brand_css() -> str:
     """Brand styling only. Deliberately never sets page/widget background or text
     colors — Streamlit's native theme (Light/Dark/Auto, user-selectable from the
@@ -251,31 +257,45 @@ def render_question_step(q, idx, total_qs, mode):
     """, unsafe_allow_html=True)
 
     options = q.get("alternativas", [])
-    selected_index = st.radio(
-        "Selecione a alternativa correta:",
-        range(len(options)),
-        format_func=lambda i: options[i],
-        key=f"q_{idx}",
-        index=None,
-    )
+    correct_indices = parse_correct_indices(q.get("resposta_correta", ""))
+    is_multi = len(correct_indices) > 1
+
+    if is_multi:
+        st.caption("⚠️ Esta questão tem mais de uma alternativa correta — marque todas que se aplicam.")
+        selected_indices = st.multiselect(
+            "Selecione todas as alternativas corretas:",
+            options=range(len(options)),
+            format_func=lambda i: options[i],
+            key=f"q_{idx}",
+        )
+        has_selection = len(selected_indices) > 0
+    else:
+        selected_index = st.radio(
+            "Selecione a alternativa correta:",
+            range(len(options)),
+            format_func=lambda i: options[i],
+            key=f"q_{idx}",
+            index=None,
+        )
+        selected_indices = [selected_index] if selected_index is not None else []
+        has_selection = selected_index is not None
 
     is_last = idx == total_qs - 1
     next_label = "🏁 Finalizar prova" if is_last else "Próxima questão →"
 
     if mode == "Study Mode (Instant Feedback)":
         if not st.session_state.get("checked"):
-            if st.button("Verificar resposta", disabled=selected_index is None):
-                st.session_state["answers"][idx] = selected_index
+            if st.button("Verificar resposta", disabled=not has_selection):
+                st.session_state["answers"][idx] = selected_indices
                 st.session_state["checked"] = True
                 st.rerun()
         else:
-            correct_index = ord(q.get("resposta_correta", "").strip().upper()) - 65
-            stored_index = st.session_state["answers"].get(idx)
-            correct_text = options[correct_index] if 0 <= correct_index < len(options) else "—"
-            if stored_index == correct_index:
+            stored_indices = st.session_state["answers"].get(idx) or []
+            correct_text = ", ".join(options[i] for i in sorted(correct_indices)) if correct_indices else "—"
+            if set(stored_indices) == correct_indices:
                 st.success(f"✅ **Correto!** (Resposta: **{correct_text}**)")
             else:
-                stored_text = options[stored_index] if stored_index is not None else "—"
+                stored_text = ", ".join(options[i] for i in sorted(stored_indices)) if stored_indices else "—"
                 st.error(f"❌ **Incorreto.** (Você marcou: **{stored_text}** | Correta: **{correct_text}**)")
             st.markdown(f"**Explicação:** {q.get('explicacao')}")
             ref = q.get("referencia", {})
@@ -289,8 +309,8 @@ def render_question_step(q, idx, total_qs, mode):
                     st.session_state["submitted"] = True
                 st.rerun()
     else:
-        if st.button(next_label, disabled=selected_index is None):
-            st.session_state["answers"][idx] = selected_index
+        if st.button(next_label, disabled=not has_selection):
+            st.session_state["answers"][idx] = selected_indices
             st.session_state["current_q_idx"] += 1
             if st.session_state["current_q_idx"] >= total_qs:
                 st.session_state["submitted"] = True
@@ -309,10 +329,10 @@ def render_results_dashboard(exam_list, total_qs, mode, username, user_id, selec
 
         topic_scores[tema]["total"] += 1
 
-        user_index = st.session_state["answers"].get(idx)
-        correct_index = ord(q.get("resposta_correta", "").strip().upper()) - 65
+        user_indices = set(st.session_state["answers"].get(idx) or [])
+        correct_indices = parse_correct_indices(q.get("resposta_correta", ""))
 
-        if user_index == correct_index:
+        if user_indices == correct_indices:
             correct_count += 1
             topic_scores[tema]["correct"] += 1
 
@@ -586,9 +606,8 @@ def render_admin_tab(username):
         for field in ("enunciado", "explicacao"):
             if q.get(field):
                 q[field] = CITATION_MARKER_RE.sub('', q[field]).strip()
-        correct_letter = q["resposta_correta"].strip().upper()
-        correct_index = ord(correct_letter) - 65 if len(correct_letter) == 1 else -1
-        if not (0 <= correct_index < len(q["alternativas"])):
+        correct_indices = parse_correct_indices(q["resposta_correta"])
+        if not correct_indices or not all(0 <= i < len(q["alternativas"]) for i in correct_indices):
             errors.append(f"Questão {i + 1}: 'resposta_correta' ('{q['resposta_correta']}') não corresponde a nenhuma alternativa")
             continue
         valid_questions.append(q)
