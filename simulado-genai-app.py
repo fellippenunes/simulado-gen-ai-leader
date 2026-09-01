@@ -227,8 +227,9 @@ def load_questions(filename):
 
 def reset_exam_progress():
     for key in (
-        "current_exam", "answers", "current_q_idx", "checked", "submitted", "last_settings",
+        "current_exam", "answers", "current_q_idx", "checked", "submitted",
         "attempt_saved", "exam_started", "exam_start_time", "exam_duration_seconds",
+        "exam_mode", "exam_topic",
     ):
         st.session_state.pop(key, None)
 
@@ -409,48 +410,64 @@ def render_exam_tab(username, user_id):
     exam_started = st.session_state.get("exam_started", False)
 
     st.sidebar.subheader("🎯 Filtros e Modo")
-    mode = st.sidebar.radio(
-        "Modo de Exame",
-        ["Study Mode (Instant Feedback)", "Exam Mode (Final Score Only)"],
+
+    full_exam_mode = st.sidebar.checkbox(
+        "🎓 Prova Completa (50 questões, 120 min)",
         disabled=exam_started,
+        help="Sorteia 50 questões de todo o banco (ignora filtro de tópico), no Modo Prova, com cronômetro fixo de 120 minutos.",
     )
 
-    filter_by_topic = st.sidebar.checkbox("Filtrar por tópico", disabled=exam_started)
-    selected_topic = None
-    if filter_by_topic:
-        selected_topic = st.sidebar.selectbox("Escolha a seção / tópico", all_topics, disabled=exam_started)
-        filtered_questions = [q for q in raw_questions if q.get("tema") == selected_topic]
-    else:
+    if full_exam_mode:
+        mode = "Exam Mode (Final Score Only)"
+        selected_topic = None
         filtered_questions = raw_questions
-
-    total_available = len(filtered_questions)
-    max_questions = min(50, total_available)
-    if total_available == 0:
-        st.warning("No questions available for this selection.")
-        return
-    elif max_questions == 1:
-        num_questions = 1
+        num_questions = min(50, len(raw_questions))
+        exam_duration_seconds = 120 * 60
+        st.sidebar.caption(f"🎓 {num_questions} questões sorteadas de todo o banco · Modo Prova · 120 minutos.")
     else:
-        min_q = min(5, max_questions - 1)
-        num_questions = st.sidebar.slider(
-            "Número de questões",
-            min_value=min_q,
-            max_value=max_questions,
-            value=min(20, max_questions),
+        mode = st.sidebar.radio(
+            "Modo de Exame",
+            ["Study Mode (Instant Feedback)", "Exam Mode (Final Score Only)"],
             disabled=exam_started,
         )
 
-    minutes_per_question = st.sidebar.slider(
-        "Minutos por questão",
-        min_value=1,
-        max_value=5,
-        value=3,
-        disabled=exam_started,
-    )
+        filter_by_topic = st.sidebar.checkbox("Filtrar por tópico", disabled=exam_started)
+        selected_topic = None
+        if filter_by_topic:
+            selected_topic = st.sidebar.selectbox("Escolha a seção / tópico", all_topics, disabled=exam_started)
+            filtered_questions = [q for q in raw_questions if q.get("tema") == selected_topic]
+        else:
+            filtered_questions = raw_questions
+
+        total_available = len(filtered_questions)
+        max_questions = min(50, total_available)
+        if total_available == 0:
+            st.warning("No questions available for this selection.")
+            return
+        elif max_questions == 1:
+            num_questions = 1
+        else:
+            min_q = min(5, max_questions - 1)
+            num_questions = st.sidebar.slider(
+                "Número de questões",
+                min_value=min_q,
+                max_value=max_questions,
+                value=min(20, max_questions),
+                disabled=exam_started,
+            )
+
+        minutes_per_question = st.sidebar.slider(
+            "Minutos por questão",
+            min_value=1,
+            max_value=5,
+            value=3,
+            disabled=exam_started,
+        )
+        exam_duration_seconds = num_questions * minutes_per_question * 60
 
     if not exam_started:
-        exam_minutes = num_questions * minutes_per_question
-        st.sidebar.caption(f"⏱️ Tempo do simulado: {exam_minutes} minutos ({num_questions} questões × {minutes_per_question} min)")
+        exam_minutes = exam_duration_seconds // 60
+        st.sidebar.caption(f"⏱️ Tempo do simulado: {exam_minutes} minutos")
         if st.sidebar.button("🚀 Iniciar Simulado"):
             pool = list(filtered_questions)
             random.shuffle(pool)
@@ -462,16 +479,20 @@ def render_exam_tab(username, user_id):
             st.session_state["attempt_saved"] = False
             st.session_state["exam_started"] = True
             st.session_state["exam_start_time"] = time.time()
-            st.session_state["exam_duration_seconds"] = num_questions * minutes_per_question * 60
+            st.session_state["exam_duration_seconds"] = exam_duration_seconds
+            st.session_state["exam_mode"] = mode
+            st.session_state["exam_topic"] = selected_topic
             st.rerun()
         st.info("Configure o simulado na barra lateral e clique em **🚀 Iniciar Simulado** para começar.")
         return
 
     exam_list = st.session_state["current_exam"]
     total_qs = len(exam_list)
+    active_mode = st.session_state.get("exam_mode", mode)
+    active_topic = st.session_state.get("exam_topic", selected_topic)
 
     if st.session_state.get("submitted"):
-        render_results_dashboard(exam_list, total_qs, mode, username, user_id, selected_version, selected_topic)
+        render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, selected_version, active_topic)
     else:
         col_timer, col_end = st.columns([4, 1])
         with col_timer:
@@ -486,7 +507,7 @@ def render_exam_tab(username, user_id):
         else:
             st_autorefresh(interval=1000, key="exam_timer_refresh")
             idx = st.session_state["current_q_idx"]
-            render_question_step(exam_list[idx], idx, total_qs, mode)
+            render_question_step(exam_list[idx], idx, total_qs, active_mode)
 
 
 def render_progress_tab(username):
