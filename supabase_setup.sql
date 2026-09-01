@@ -48,3 +48,11 @@ create table if not exists questions (
 );
 
 create index if not exists questions_version_idx on questions (version);
+
+-- Security: the app only ever talks to Supabase using the service_role key
+-- (server-side, never exposed to the browser), which bypasses RLS entirely.
+-- Enabling RLS with zero policies blocks all access via the public anon key
+-- without affecting the app, closing the "publicly accessible table" warning.
+alter table users enable row level security;
+alter table attempts enable row level security;
+alter table questions enable row level security;
