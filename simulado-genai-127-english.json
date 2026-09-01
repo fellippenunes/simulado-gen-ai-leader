@@ -672,23 +672,6 @@
     }
   },
   {
-    "enunciado": "At which of the following stages in the generative AI development process do you need to consider infrastructure requirements if you are building on a platform that does not handle it for you? (Select All)",
-    "alternativas": [
-      "Data collection",
-      "Deployment",
-      "Model training",
-      "Model refinement",
-      "Model monitoring"
-    ],
-    "resposta_correta": "A, B, C, D, E",
-    "explicacao": "If you are building on a platform that does not handle infrastructure for you (such as on-premises environments), infrastructure requirements (storage, compute, networking) must be considered at every stage of the AI development lifecycle.",
-    "tema": "Section 3.4: Grounding Techniques & Sampling",
-    "referencia": {
-      "titulo": "Grounding overview",
-      "url": "https://docs.cloud.google.com/vertex-ai/docs/generative-ai/grounding?hl=pt"
-    }
-  },
-  {
     "enunciado": "What is the purpose of Auto ML in Vertex AI?",
     "alternativas": [
       "To allow users to build and train AI models with minimal technical expertise.",
