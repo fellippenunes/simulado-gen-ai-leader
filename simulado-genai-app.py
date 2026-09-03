@@ -12,6 +12,7 @@ LETTER_PREFIX_RE = re.compile(r'^[A-Za-z]\)\s*')
 CITATION_MARKER_RE = re.compile(r'\s*\[\d+(?:,\s*\d+)*\]')
 QUESTION_VERSION = "English Version"
 SESSION_TIMEOUT_SECONDS = 10 * 60  # 10 minutes of inactivity (paused while an exam is in progress)
+MINUTES_PER_QUESTION = 2
 
 # Set Page Config — sidebar starts collapsed once an exam is in progress
 st.set_page_config(
@@ -28,31 +29,103 @@ def topic_color(topic: str) -> str:
     return GOOGLE_COLORS[sum(ord(c) for c in topic) % len(GOOGLE_COLORS)]
 
 
-def draw_varied_exam(pool: list, num_questions: int) -> list:
-    """Randomly samples num_questions from pool, then orders them to spread
-    domains ("tema") out as evenly as possible, avoiding two consecutive
-    questions from the same domain whenever the mix of domains allows it."""
-    sample = list(pool)
-    random.shuffle(sample)
-    sample = sample[:num_questions]
+SECTION_RE = re.compile(r'^(?:Section|Se[cç][ãa]o)\s*(\d+)', re.IGNORECASE)
+
+# Official exam guide weighting (Generative AI Leader certification).
+SECTION_WEIGHTS = {
+    "Section 1": 0.30,
+    "Section 2": 0.35,
+    "Section 3": 0.20,
+    "Section 4": 0.15,
+}
+
+SECTION_TITLES = {
+    "Section 1": "Section 1: Fundamentals of gen AI",
+    "Section 2": "Section 2: Google Cloud's gen AI offerings",
+    "Section 3": "Section 3: Techniques to improve gen AI model output",
+    "Section 4": "Section 4: Business strategies for a successful gen AI solution",
+}
+
+
+def topic_section_label(tema: str) -> str:
+    """Rolls a granular tema ("Section 2.3: ...") up to its top-level exam
+    section ("Section 2"). Falls back to the raw tema if it doesn't match
+    the "Section N[.M]" pattern."""
+    match = SECTION_RE.match(tema or "")
+    return f"Section {match.group(1)}" if match else (tema or "General")
+
+
+def select_stratified_by_section(pool: list, n: int) -> list:
+    """Samples n questions from pool while keeping each official exam
+    section's share close to its real weight (30/35/20/15%). Falls back to
+    plain random sampling if the pool doesn't have recognizable sections."""
+    by_section = {}
+    for q in pool:
+        by_section.setdefault(topic_section_label(q.get("tema", "")), []).append(q)
+
+    recognized = {s: qs for s, qs in by_section.items() if s in SECTION_WEIGHTS}
+    other = [q for s, qs in by_section.items() if s not in SECTION_WEIGHTS for q in qs]
+
+    if not recognized:
+        sample = list(pool)
+        random.shuffle(sample)
+        return sample[:n]
+
+    targets = {s: n * w for s, w in SECTION_WEIGHTS.items() if s in recognized}
+    quota = {s: int(t) for s, t in targets.items()}
+    remainder = n - sum(quota.values())
+    by_fraction = sorted(targets.items(), key=lambda kv: kv[1] - quota[kv[0]], reverse=True)
+    for s, _ in by_fraction[:remainder]:
+        quota[s] += 1
+
+    selected = []
+    leftover_pool = []
+    for s, target in quota.items():
+        group = list(recognized.get(s, []))
+        random.shuffle(group)
+        take = min(target, len(group))
+        selected.extend(group[:take])
+        leftover_pool.extend(group[take:])
+
+    shortfall = n - len(selected)
+    if shortfall > 0:
+        fill_pool = leftover_pool + other
+        random.shuffle(fill_pool)
+        selected.extend(fill_pool[:shortfall])
+
+    random.shuffle(selected)
+    return selected[:n]
+
+
+def draw_varied_exam(pool: list, num_questions: int, stratify: bool = False) -> list:
+    """Selects num_questions from pool — proportionally by official exam
+    section when stratify=True — then orders them so the same top-level
+    section (1-4) never appears twice in a row (when the mix allows it),
+    with fully shuffled order within each section run."""
+    if stratify:
+        sample = select_stratified_by_section(pool, num_questions)
+    else:
+        sample = list(pool)
+        random.shuffle(sample)
+        sample = sample[:num_questions]
 
     groups = {}
     for q in sample:
-        groups.setdefault(q.get("tema", "General"), []).append(q)
+        groups.setdefault(topic_section_label(q.get("tema", "General")), []).append(q)
     for group in groups.values():
         random.shuffle(group)
 
     ordered = []
-    last_topic = None
+    last_section = None
     while any(groups.values()):
         candidates = sorted(
-            (t for t, g in groups.items() if g),
-            key=lambda t: len(groups[t]),
+            (s for s, g in groups.items() if g),
+            key=lambda s: len(groups[s]),
             reverse=True,
         )
-        pick_topic = next((t for t in candidates if t != last_topic), candidates[0])
-        ordered.append(groups[pick_topic].pop())
-        last_topic = pick_topic
+        pick_section = next((s for s in candidates if s != last_section), candidates[0])
+        ordered.append(groups[pick_section].pop())
+        last_section = pick_section
 
     return ordered
 
@@ -87,6 +160,11 @@ def build_brand_css() -> str:
             font-family: 'Roboto', 'Segoe UI', sans-serif;
         }
 
+        [data-testid="stAppViewContainer"] .main .block-container,
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 1.5rem !important;
+        }
+
         .main-header {
             font-size: 34px;
             font-weight: 700;
@@ -101,7 +179,7 @@ def build_brand_css() -> str:
             height: 5px;
             width: 130px;
             border-radius: 4px;
-            margin-bottom: 18px;
+            margin-bottom: 10px;
             background: linear-gradient(90deg,
                 #4285F4 0%, #4285F4 25%,
                 #EA4335 25%, #EA4335 50%,
@@ -120,11 +198,11 @@ def build_brand_css() -> str:
             background-color: rgba(66, 133, 244, 0.15);
             color: #4285F4;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 0.3px;
-            padding: 6px 16px;
+            padding: 3px 12px;
             border-radius: 999px;
-            margin-bottom: 14px;
+            margin-bottom: 4px;
         }
 
         .exam-timer {
@@ -132,9 +210,9 @@ def build_brand_css() -> str:
             font-weight: 700;
             font-size: 20px;
             font-variant-numeric: tabular-nums;
-            padding: 6px 18px;
+            padding: 5px 16px;
             border-radius: 999px;
-            margin-bottom: 14px;
+            margin-bottom: 0;
         }
         .exam-timer.timer-normal {
             background-color: rgba(66, 133, 244, 0.15);
@@ -148,15 +226,18 @@ def build_brand_css() -> str:
         .question-box {
             background-color: rgba(128, 128, 128, 0.08);
             border: 1px solid rgba(128, 128, 128, 0.25);
-            padding: 28px;
+            padding: 18px 22px;
             border-radius: 16px;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
             border-top: 4px solid var(--topic-color, #4285F4);
+            text-align: left;
         }
         .question-box p {
             font-weight: 600;
             font-size: 18px;
             line-height: 1.5;
+            text-align: left;
+            margin: 0;
         }
 
         span.topic-tag {
@@ -194,6 +275,9 @@ def build_brand_css() -> str:
         .stProgress > div > div > div {
             background-color: #4285F4 !important;
         }
+        [data-testid="stProgress"] {
+            margin-bottom: 6px;
+        }
 
         .stTabs [data-baseweb="tab"] p {
             font-weight: 500;
@@ -217,6 +301,149 @@ def build_brand_css() -> str:
             padding: 6px 0;
         }
 
+        /* Let long section titles wrap instead of being truncated */
+        [data-testid="stSelectbox"],
+        [data-testid="stSelectbox"] * {
+            height: auto !important;
+            min-height: 38px !important;
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: unset !important;
+            line-height: 1.3 !important;
+        }
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div {
+            align-items: flex-start !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+        [data-baseweb="popover"] [role="option"],
+        [data-baseweb="menu"] li {
+            white-space: normal !important;
+            height: auto !important;
+            min-height: 38px !important;
+            line-height: 1.3 !important;
+        }
+
+        /* Answer option buttons — full clickable rectangles, letter-first, left aligned */
+        [class*="st-key-options_"] .stButton > button {
+            width: 100%;
+            border-radius: 10px !important;
+            background-color: rgba(128, 128, 128, 0.06) !important;
+            border: 1.5px solid rgba(128, 128, 128, 0.3) !important;
+            color: inherit !important;
+            text-align: left !important;
+            justify-content: flex-start !important;
+            padding: 14px 18px !important;
+            font-weight: 500 !important;
+            box-shadow: none !important;
+            margin-bottom: 10px !important;
+        }
+        [class*="st-key-options_"] .stButton > button * {
+            justify-content: flex-start !important;
+            text-align: left !important;
+        }
+        [class*="st-key-options_"] .stButton > button p {
+            color: inherit !important;
+            text-align: left !important;
+        }
+        [class*="st-key-options_"] .stButton > button:hover {
+            background-color: rgba(66, 133, 244, 0.12) !important;
+            border-color: #4285F4 !important;
+        }
+        [class*="st-key-options_"] .stButton > button[kind="primary"] {
+            background-color: rgba(66, 133, 244, 0.18) !important;
+            border: 1.5px solid #4285F4 !important;
+            color: #4285F4 !important;
+        }
+        [class*="st-key-options_"] .stButton > button[kind="primary"] p {
+            color: #4285F4 !important;
+        }
+        [class*="st-key-options_"] .stButton > button p::first-letter {
+            background-color: rgba(128, 128, 128, 0.2);
+            font-weight: 700;
+            padding: 7px 11px;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+        [class*="st-key-options_"] .stButton > button[kind="primary"] p::first-letter {
+            background-color: #4285F4;
+            color: #ffffff;
+        }
+
+        /* Review table — flat, full-width clickable rows with a dividing line, no pill buttons */
+        /* Compact, centered review table — sized to content, no button chrome */
+        /* Review table — clickable rows (3 button-cells forming one row), compact */
+        [class*="st-key-reviewtable"] .stButton > button {
+            width: 100%;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.2) !important;
+            color: inherit !important;
+            font-weight: 500 !important;
+            font-size: 14px !important;
+            box-shadow: none !important;
+            margin-bottom: 0 !important;
+            padding: 8px 4px !important;
+        }
+        [class*="st-key-reviewtable"] .stButton > button p {
+            color: inherit !important;
+        }
+        [class*="st-key-reviewtable"] .stButton > button:hover {
+            background-color: rgba(66, 133, 244, 0.08) !important;
+        }
+
+        /* Discreet "Encerrar" button */
+        [class*="st-key-endbtn"] .stButton > button {
+            font-size: 12px !important;
+            padding: 4px 10px !important;
+            white-space: nowrap !important;
+        }
+
+        /* Static, colored option rows shown after "Verificar resposta" */
+        .option-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border: 1.5px solid rgba(128, 128, 128, 0.3);
+        }
+        .option-row .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background-color: rgba(128, 128, 128, 0.18);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .option-row .option-text {
+            flex: 1;
+        }
+        .option-row .option-icon {
+            font-size: 16px;
+        }
+        .option-row.option-correct {
+            background-color: rgba(52, 168, 83, 0.12);
+            border-color: #34A853;
+        }
+        .option-row.option-correct .option-letter {
+            background-color: #34A853;
+            color: #ffffff;
+        }
+        .option-row.option-wrong {
+            background-color: rgba(234, 67, 53, 0.12);
+            border-color: #EA4335;
+        }
+        .option-row.option-wrong .option-letter {
+            background-color: #EA4335;
+            color: #ffffff;
+        }
+
         .user-badge {
             display: inline-block;
             background-color: rgba(66, 133, 244, 0.15);
@@ -225,7 +452,12 @@ def build_brand_css() -> str:
             font-size: 13px;
             padding: 6px 14px;
             border-radius: 999px;
-            margin-top: 8px;
+            margin-top: 6px;
+        }
+
+        /* Bigger labels on sidebar selectors */
+        [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
+            font-size: 16px !important;
         }
     </style>
     """
@@ -250,16 +482,25 @@ def render_brand_header(subtitle: str | None = None):
 
 
 def render_user_badge(username: str):
-    st.sidebar.markdown(f'<div class="user-badge">👤 Logado como: {username}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="user-badge">👤 {username}</div>', unsafe_allow_html=True)
 
 
 def reset_exam_progress():
     for key in (
         "current_exam", "answers", "current_q_idx", "checked", "submitted",
         "attempt_saved", "exam_started", "exam_start_time", "exam_duration_seconds",
-        "exam_mode", "exam_topic",
+        "exam_mode", "exam_topic", "review_flags", "reviewing", "nav_source", "cycle_list",
     ):
         st.session_state.pop(key, None)
+    for key in [k for k in list(st.session_state.keys()) if k.startswith("reviewflag_")]:
+        del st.session_state[key]
+
+
+def section_sort_key(label: str):
+    parts = label.split()
+    if label.startswith("Section ") and parts[-1].isdigit():
+        return (0, int(parts[-1]))
+    return (1, label)
 
 
 def render_timer() -> float:
@@ -286,40 +527,69 @@ def render_question_step(q, idx, total_qs, mode):
     """, unsafe_allow_html=True)
 
     options = q.get("alternativas", [])
+    letters = [chr(65 + i) for i in range(len(options))]
     correct_indices = parse_correct_indices(q.get("resposta_correta", ""))
     is_multi = len(correct_indices) > 1
 
-    if is_multi:
-        st.caption("⚠️ Esta questão tem mais de uma alternativa correta — marque todas que se aplicam.")
-        selected_indices = st.multiselect(
-            "Selecione todas as alternativas corretas:",
-            options=range(len(options)),
-            format_func=lambda i: options[i],
-            key=f"q_{idx}",
-        )
-        has_selection = len(selected_indices) > 0
+    current_answer = st.session_state["answers"].get(idx) or []
+    selected_set = set(current_answer)
+    selected_single = current_answer[0] if current_answer else None
+
+    checked = mode == "Study Mode (Instant Feedback)" and st.session_state.get("checked")
+
+    if checked:
+        stored_set = selected_set
+        for i, opt in enumerate(options):
+            if i in correct_indices:
+                css_class, icon = "option-correct", "✅"
+            elif i in stored_set:
+                css_class, icon = "option-wrong", "❌"
+            else:
+                css_class, icon = "option-neutral", ""
+            st.markdown(
+                f'<div class="option-row {css_class}">'
+                f'<span class="option-letter">{letters[i]}</span>'
+                f'<span class="option-text">{opt}</span>'
+                f'<span class="option-icon">{icon}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
     else:
-        selected_index = st.radio(
-            "Selecione a alternativa correta:",
-            range(len(options)),
-            format_func=lambda i: options[i],
-            key=f"q_{idx}",
-            index=None,
-        )
-        selected_indices = [selected_index] if selected_index is not None else []
-        has_selection = selected_index is not None
+        if is_multi:
+            st.caption("⚠️ Esta questão tem mais de uma alternativa correta — marque todas que se aplicam.")
+        with st.container(key=f"options_{idx}"):
+            for i, opt in enumerate(options):
+                selected = (i in selected_set) if is_multi else (selected_single == i)
+                if st.button(
+                    f"{letters[i]}   {opt}",
+                    key=f"optbtn_{idx}_{i}",
+                    use_container_width=True,
+                    type="primary" if selected else "secondary",
+                ):
+                    if is_multi:
+                        new_set = set(selected_set)
+                        if selected:
+                            new_set.discard(i)
+                        else:
+                            new_set.add(i)
+                        st.session_state["answers"][idx] = sorted(new_set)
+                    else:
+                        st.session_state["answers"][idx] = [i]
+                    st.rerun()
+
+    selected_indices = st.session_state["answers"].get(idx) or []
+    has_selection = len(selected_indices) > 0
 
     is_last = idx == total_qs - 1
-    next_label = "🏁 Finalizar prova" if is_last else "Próxima questão →"
 
     if mode == "Study Mode (Instant Feedback)":
+        next_label = "🏁 Finalizar prova" if is_last else "Próxima questão →"
         if not st.session_state.get("checked"):
             if st.button("Verificar resposta", disabled=not has_selection):
-                st.session_state["answers"][idx] = selected_indices
                 st.session_state["checked"] = True
                 st.rerun()
         else:
-            stored_indices = st.session_state["answers"].get(idx) or []
+            stored_indices = selected_indices
             correct_text = ", ".join(options[i] for i in sorted(correct_indices)) if correct_indices else "—"
             if set(stored_indices) == correct_indices:
                 st.success(f"✅ **Correto!** (Resposta: **{correct_text}**)")
@@ -338,25 +608,154 @@ def render_question_step(q, idx, total_qs, mode):
                     st.session_state["submitted"] = True
                 st.rerun()
     else:
-        if st.button(next_label, disabled=not has_selection):
-            st.session_state["answers"][idx] = selected_indices
-            st.session_state["current_q_idx"] += 1
-            if st.session_state["current_q_idx"] >= total_qs:
-                st.session_state["submitted"] = True
+        # Exam Mode: free forward/back navigation, no answer required to move on.
+        nav_source = st.session_state.get("nav_source", "linear")
+        review_flags = set(st.session_state.get("review_flags", set()))
+
+        marked = st.checkbox(
+            "🔖 Marcar esta questão para revisão",
+            value=idx in review_flags,
+            key=f"reviewflag_{idx}",
+        )
+        if marked:
+            review_flags.add(idx)
+        else:
+            review_flags.discard(idx)
+        st.session_state["review_flags"] = review_flags
+
+        if nav_source == "jump":
+            if st.button("↩ Voltar para a tabela de questões", use_container_width=True):
+                st.session_state["reviewing"] = True
+                st.rerun()
+        elif nav_source == "cycle":
+            cycle_list = st.session_state.get("cycle_list", [])
+            pos = cycle_list.index(idx) if idx in cycle_list else None
+            col_prev, col_next = st.columns(2)
+            with col_prev:
+                if pos is not None and pos > 0:
+                    if st.button("◀ Anterior", use_container_width=True):
+                        st.session_state["current_q_idx"] = cycle_list[pos - 1]
+                        st.rerun()
+                else:
+                    st.button("◀ Anterior", disabled=True, use_container_width=True)
+            with col_next:
+                is_last_in_cycle = pos is None or pos >= len(cycle_list) - 1
+                next_cycle_label = "✅ Concluir" if is_last_in_cycle else "Próxima →"
+                if st.button(next_cycle_label, use_container_width=True):
+                    review_flags.discard(idx)
+                    st.session_state["review_flags"] = review_flags
+                    st.session_state.pop(f"reviewflag_{idx}", None)
+                    if is_last_in_cycle:
+                        st.session_state["reviewing"] = True
+                    else:
+                        st.session_state["current_q_idx"] = cycle_list[pos + 1]
+                    st.rerun()
+        else:
+            next_label = "🏁 Ver revisão e finalizar" if is_last else "Avançar →"
+            col_prev, col_next = st.columns(2)
+            with col_prev:
+                if idx > 0:
+                    if st.button("◀ Voltar", use_container_width=True):
+                        st.session_state["current_q_idx"] = idx - 1
+                        st.rerun()
+                else:
+                    st.button("◀ Voltar", disabled=True, use_container_width=True)
+            with col_next:
+                if st.button(next_label, use_container_width=True):
+                    if is_last:
+                        st.session_state["reviewing"] = True
+                    else:
+                        st.session_state["current_q_idx"] = idx + 1
+                    st.rerun()
+
+
+def render_review_table(total_qs):
+    st.subheader("🗂️ Revisão das Questões")
+    st.caption("Clique em qualquer ponto de uma linha para ir até aquela questão.")
+
+    review_flags = st.session_state.get("review_flags", set())
+    answers = st.session_state.get("answers", {})
+
+    col_mid, _ = st.columns([2, 1])
+    with col_mid:
+        with st.container(key="reviewtable"):
+            header = st.columns([1, 1.6, 1.6])
+            header[0].markdown("<div style='text-align:center;'><b>Questão</b></div>", unsafe_allow_html=True)
+            header[1].markdown("<div style='text-align:center;'><b>Preenchida</b></div>", unsafe_allow_html=True)
+            header[2].markdown("<div style='text-align:center;'><b>Revisão</b></div>", unsafe_allow_html=True)
+
+            for i in range(total_qs):
+                answered = bool(answers.get(i))
+                marked = i in review_flags
+                status = "✅ Sim" if answered else "⬜ Não"
+                review_status = "🔖 Sim" if marked else "—"
+
+                row = st.columns([1, 1.6, 1.6])
+                clicked = False
+                with row[0]:
+                    if st.button(f"{i + 1}", key=f"jumpnum_{i}", use_container_width=True):
+                        clicked = True
+                with row[1]:
+                    if st.button(status, key=f"jumpstatus_{i}", use_container_width=True):
+                        clicked = True
+                with row[2]:
+                    if st.button(review_status, key=f"jumpreview_{i}", use_container_width=True):
+                        clicked = True
+                if clicked:
+                    st.session_state["current_q_idx"] = i
+                    st.session_state["nav_source"] = "jump"
+                    st.session_state["reviewing"] = False
+                    st.rerun()
+
+    st.divider()
+    marked_count = len(review_flags)
+    unanswered_indices = [i for i in range(total_qs) if not answers.get(i)]
+    unanswered_count = len(unanswered_indices)
+    col_a, col_b = st.columns(2)
+    with col_a:
+        if st.button(
+            f"📝 Revisar questões marcadas ({marked_count})",
+            disabled=marked_count == 0,
+            use_container_width=True,
+        ):
+            st.session_state["cycle_list"] = sorted(review_flags)
+            st.session_state["current_q_idx"] = st.session_state["cycle_list"][0]
+            st.session_state["nav_source"] = "cycle"
+            st.session_state["reviewing"] = False
             st.rerun()
+    with col_b:
+        if st.button(
+            f"📄 Fazer questões não respondidas ({unanswered_count})",
+            disabled=unanswered_count == 0,
+            use_container_width=True,
+        ):
+            st.session_state["cycle_list"] = unanswered_indices
+            st.session_state["current_q_idx"] = st.session_state["cycle_list"][0]
+            st.session_state["nav_source"] = "cycle"
+            st.session_state["reviewing"] = False
+            st.rerun()
+
+    if st.button("🏁 Finalizar prova", use_container_width=True, type="primary"):
+        st.session_state["submitted"] = True
+        st.rerun()
 
 
 def render_results_dashboard(exam_list, total_qs, mode, username, user_id, selected_version, selected_topic):
-    st.subheader("📊 Painel de Desempenho")
+    st.subheader("🏁 Resultado")
     correct_count = 0
-    topic_scores = {}  # Track performance by exam section
+    topic_scores = {}  # granular tema — kept for per-domain history in "Meu Progresso"
+    section_scores = {}  # top-level Section 1-4 — used for the breakdown shown here
 
     for idx, q in enumerate(exam_list):
         tema = q.get("tema", "General")
         if tema not in topic_scores:
             topic_scores[tema] = {"correct": 0, "total": 0}
-
         topic_scores[tema]["total"] += 1
+
+        section = topic_section_label(tema)
+        if section not in section_scores:
+            section_scores[section] = {"correct": 0, "total": 0}
+        section_scores[section]["total"] += 1
 
         user_indices = set(st.session_state["answers"].get(idx) or [])
         correct_indices = parse_correct_indices(q.get("resposta_correta", ""))
@@ -364,6 +763,7 @@ def render_results_dashboard(exam_list, total_qs, mode, username, user_id, selec
         if user_indices == correct_indices:
             correct_count += 1
             topic_scores[tema]["correct"] += 1
+            section_scores[section]["correct"] += 1
 
     final_pct = (correct_count / total_qs) * 100
 
@@ -394,12 +794,12 @@ def render_results_dashboard(exam_list, total_qs, mode, username, user_id, selec
     with col3:
         st.write("")
 
-    st.subheader("📈 Desempenho por Seção / Domínio")
-    for topic, scores in topic_scores.items():
+    st.subheader("📈 Resultado por Seção")
+    for section, scores in sorted(section_scores.items(), key=lambda item: section_sort_key(item[0])):
         t_correct = scores["correct"]
         t_total = scores["total"]
         t_pct = (t_correct / t_total) * 100
-        st.write(f"**{topic}**")
+        st.write(f"**{SECTION_TITLES.get(section, section)}**")
         st.progress(t_pct / 100)
         st.caption(f"{t_correct} de {t_total} corretas ({t_pct:.1f}%)")
 
@@ -410,6 +810,37 @@ def render_results_dashboard(exam_list, total_qs, mode, username, user_id, selec
 
 
 def render_exam_tab(username, user_id):
+    exam_started = st.session_state.get("exam_started", False)
+
+    if exam_started:
+        exam_list = st.session_state["current_exam"]
+        total_qs = len(exam_list)
+        active_mode = st.session_state.get("exam_mode")
+        active_topic = st.session_state.get("exam_topic")
+
+        if st.session_state.get("submitted"):
+            render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, QUESTION_VERSION, active_topic)
+        else:
+            col_timer, col_end = st.columns([5, 1.3])
+            with col_timer:
+                remaining = render_timer()
+            with col_end:
+                with st.container(key="endbtn"):
+                    if st.button("⏹️ Encerrar", use_container_width=True):
+                        st.session_state["submitted"] = True
+                        st.rerun()
+            if remaining <= 0:
+                st.session_state["submitted"] = True
+                st.rerun()
+            else:
+                st_autorefresh(interval=1000, key="exam_timer_refresh")
+                if active_mode != "Study Mode (Instant Feedback)" and st.session_state.get("reviewing"):
+                    render_review_table(total_qs)
+                else:
+                    idx = st.session_state["current_q_idx"]
+                    render_question_step(exam_list[idx], idx, total_qs, active_mode)
+        return
+
     # Sidebar Options
     st.sidebar.header("⚙️ Configurações do Simulado")
 
@@ -418,108 +849,86 @@ def render_exam_tab(username, user_id):
         st.warning("Nenhuma questão encontrada no banco de dados.")
         return
 
-    # Extract Unique Topics for Filtering
-    all_topics = sorted(list(set(q.get("tema", "General") for q in raw_questions)))
-
-    exam_started = st.session_state.get("exam_started", False)
-
-    st.sidebar.subheader("🎯 Filtros e Modo")
-
-    full_exam_mode = st.sidebar.checkbox(
-        "🎓 Prova Completa (50 questões, 120 min)",
-        disabled=exam_started,
-        help="Sorteia 50 questões de todo o banco (ignora filtro de tópico), no Modo Prova, com cronômetro fixo de 120 minutos.",
+    # Topic filter operates at the top-level exam section (Section 1-4),
+    # not the granular sub-topic each question is individually tagged with.
+    all_sections = sorted(
+        set(topic_section_label(q.get("tema", "General")) for q in raw_questions),
+        key=section_sort_key,
     )
 
-    if full_exam_mode:
+    EXAM_TYPE_FULL = "🎓 Prova Completa (50 questões)"
+    EXAM_TYPE_SHORT = "📘 Prova Reduzida (20 questões)"
+    EXAM_TYPE_QUICK = "⚡ Teste Rápido (10 questões)"
+    EXAM_TYPE_SECTION = "📂 Por Seção (10 questões)"
+    PRESET_COUNTS = {EXAM_TYPE_FULL: 50, EXAM_TYPE_SHORT: 20, EXAM_TYPE_QUICK: 10}
+
+    exam_type = st.sidebar.selectbox(
+        "**Tipo de Simulado**",
+        [EXAM_TYPE_FULL, EXAM_TYPE_SHORT, EXAM_TYPE_QUICK, EXAM_TYPE_SECTION],
+        disabled=exam_started,
+    )
+
+    if exam_type == EXAM_TYPE_FULL:
         mode = "Exam Mode (Final Score Only)"
-        selected_topic = None
-        filtered_questions = raw_questions
-        num_questions = min(50, len(raw_questions))
-        exam_duration_seconds = 120 * 60
-        st.sidebar.caption(f"🎓 {num_questions} questões sorteadas de todo o banco · Modo Prova · 120 minutos.")
+        st.sidebar.caption("🎓 Modo Prova fixo para a Prova Completa.")
     else:
-        mode = st.sidebar.radio(
-            "Modo de Exame",
+        mode = st.sidebar.selectbox(
+            "**Modo de Exame**",
             ["Study Mode (Instant Feedback)", "Exam Mode (Final Score Only)"],
             disabled=exam_started,
         )
 
-        filter_by_topic = st.sidebar.checkbox("Filtrar por tópico", disabled=exam_started)
+    if exam_type in PRESET_COUNTS:
         selected_topic = None
-        if filter_by_topic:
-            selected_topic = st.sidebar.selectbox("Escolha a seção / tópico", all_topics, disabled=exam_started)
-            filtered_questions = [q for q in raw_questions if q.get("tema") == selected_topic]
-        else:
-            filtered_questions = raw_questions
+        filtered_questions = raw_questions
+        num_questions = min(PRESET_COUNTS[exam_type], len(raw_questions))
 
-        total_available = len(filtered_questions)
-        max_questions = min(50, total_available)
-        if total_available == 0:
-            st.warning("No questions available for this selection.")
-            return
-        elif max_questions == 1:
-            num_questions = 1
-        else:
-            min_q = min(5, max_questions - 1)
-            num_questions = st.sidebar.slider(
-                "Número de questões",
-                min_value=min_q,
-                max_value=max_questions,
-                value=min(20, max_questions),
-                disabled=exam_started,
-            )
+        distribution = st.sidebar.selectbox(
+            "**Distribuição dos temas**",
+            ["Proporcional à prova oficial", "Aleatória"],
+            disabled=exam_started,
+            help="Proporcional respeita os pesos oficiais de cada seção do exame (Seção 1: 30%, 2: 35%, 3: 20%, 4: 15%). Aleatória sorteia sem considerar a seção.",
+        )
+        stratify_by_section = distribution == "Proporcional à prova oficial"
 
-        minutes_per_question = st.sidebar.slider(
-            "Minutos por questão",
-            min_value=1,
-            max_value=5,
-            value=3,
+        exam_duration_seconds = 120 * 60 if exam_type == EXAM_TYPE_FULL else num_questions * MINUTES_PER_QUESTION * 60
+
+    else:  # EXAM_TYPE_SECTION
+        selected_topic = st.sidebar.selectbox(
+            "**Escolha a seção**",
+            all_sections,
+            format_func=lambda s: SECTION_TITLES.get(s, s),
             disabled=exam_started,
         )
-        exam_duration_seconds = num_questions * minutes_per_question * 60
+        filtered_questions = [q for q in raw_questions if topic_section_label(q.get("tema", "General")) == selected_topic]
+        if not filtered_questions:
+            st.warning("No questions available for this selection.")
+            return
+        num_questions = min(10, len(filtered_questions))
+        stratify_by_section = False
+        exam_duration_seconds = num_questions * MINUTES_PER_QUESTION * 60
 
-    if not exam_started:
-        exam_minutes = exam_duration_seconds // 60
-        st.sidebar.caption(f"⏱️ Tempo do simulado: {exam_minutes} minutos")
-        if st.sidebar.button("🚀 Iniciar Simulado"):
-            st.session_state["current_exam"] = draw_varied_exam(filtered_questions, num_questions)
-            st.session_state["answers"] = {}
-            st.session_state["current_q_idx"] = 0
-            st.session_state["checked"] = False
-            st.session_state["submitted"] = False
-            st.session_state["attempt_saved"] = False
-            st.session_state["exam_started"] = True
-            st.session_state["exam_start_time"] = time.time()
-            st.session_state["exam_duration_seconds"] = exam_duration_seconds
-            st.session_state["exam_mode"] = mode
-            st.session_state["exam_topic"] = selected_topic
-            st.rerun()
-        st.info("Configure o simulado na barra lateral e clique em **🚀 Iniciar Simulado** para começar.")
-        return
-
-    exam_list = st.session_state["current_exam"]
-    total_qs = len(exam_list)
-    active_mode = st.session_state.get("exam_mode", mode)
-    active_topic = st.session_state.get("exam_topic", selected_topic)
-
-    if st.session_state.get("submitted"):
-        render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, QUESTION_VERSION, active_topic)
-    else:
-        col_timer, col_end = st.columns([4, 1])
-        with col_timer:
-            remaining = render_timer()
-        with col_end:
-            if st.button("⏹️ Encerrar"):
-                st.session_state["submitted"] = True
-                st.rerun()
-        if remaining <= 0:
-            st.session_state["submitted"] = True
-            st.rerun()
-        else:
-            st_autorefresh(interval=1000, key="exam_timer_refresh")
-            idx = st.session_state["current_q_idx"]
-            render_question_step(exam_list[idx], idx, total_qs, active_mode)
+    st.sidebar.write("")
+    st.sidebar.write("")
+    _, col_start, _ = st.sidebar.columns([1, 2, 1])
+    start_clicked = col_start.button("🚀 Iniciar Simulado", use_container_width=True)
+    if start_clicked:
+        st.session_state["current_exam"] = draw_varied_exam(filtered_questions, num_questions, stratify=stratify_by_section)
+        st.session_state["answers"] = {}
+        st.session_state["current_q_idx"] = 0
+        st.session_state["checked"] = False
+        st.session_state["submitted"] = False
+        st.session_state["attempt_saved"] = False
+        st.session_state["exam_started"] = True
+        st.session_state["exam_start_time"] = time.time()
+        st.session_state["exam_duration_seconds"] = exam_duration_seconds
+        st.session_state["exam_mode"] = mode
+        st.session_state["exam_topic"] = selected_topic
+        st.session_state["review_flags"] = set()
+        st.session_state["reviewing"] = False
+        st.session_state["nav_source"] = "linear"
+        st.rerun()
+    st.info("Configure o simulado na barra lateral e clique em **🚀 Iniciar Simulado** para começar.")
 
 
 def render_progress_tab(username):
@@ -540,25 +949,22 @@ def render_progress_tab(username):
     st.subheader("📈 Evolução da nota")
     st.line_chart(df.set_index("created_at")["score_pct"])
 
-    st.subheader("🎯 Desempenho por Domínio")
+    st.subheader("🎯 Desempenho por Seção")
     domain_totals = {}
     for _, row in df.iterrows():
         for topic, scores in (row["topic_scores"] or {}).items():
-            totals = domain_totals.setdefault(topic, {"correct": 0, "total": 0})
+            section = topic_section_label(topic)
+            totals = domain_totals.setdefault(section, {"correct": 0, "total": 0})
             totals["correct"] += scores.get("correct", 0)
             totals["total"] += scores.get("total", 0)
 
     if domain_totals:
-        sorted_domains = sorted(
-            domain_totals.items(),
-            key=lambda item: (item[1]["correct"] / item[1]["total"]) if item[1]["total"] else 0,
-            reverse=True,
-        )
-        for topic, scores in sorted_domains:
+        sorted_domains = sorted(domain_totals.items(), key=lambda item: section_sort_key(item[0]))
+        for section, scores in sorted_domains:
             t_correct = scores["correct"]
             t_total = scores["total"]
             t_pct = (t_correct / t_total * 100) if t_total else 0
-            st.write(f"**{topic}**")
+            st.write(f"**{SECTION_TITLES.get(section, section)}**")
             st.progress(t_pct / 100)
             st.caption(f"{t_correct} de {t_total} corretas ({t_pct:.1f}%)")
 
@@ -571,25 +977,31 @@ def render_progress_tab(username):
 
 # App Main Function
 def main():
-    render_brand_header()
-
     username = st.session_state["username"]
     user_id = st.session_state["user_id"]
 
-    tab_labels = ["📝 Fazer Simulado", "📈 Meu Progresso"]
+    in_active_exam = st.session_state.get("exam_started", False) and not st.session_state.get("submitted", False)
+
+    render_brand_header()
+
+    tab_labels = ["📝 Fazer Simulado"]
+    if not in_active_exam:
+        tab_labels.append("📈 Meu Progresso")
     if db.is_admin(username):
         tab_labels.append("🛠️ Admin")
 
     tabs = st.tabs(tab_labels)
     with tabs[0]:
         render_exam_tab(username, user_id)
-    with tabs[1]:
-        render_progress_tab(username)
-    if db.is_admin(username):
-        with tabs[2]:
-            render_admin_tab(username)
 
-    render_user_badge(username)
+    next_idx = 1
+    if not in_active_exam:
+        with tabs[next_idx]:
+            render_progress_tab(username)
+        next_idx += 1
+    if db.is_admin(username):
+        with tabs[next_idx]:
+            render_admin_tab(username)
 
 
 def render_admin_tab(username):
@@ -729,11 +1141,15 @@ def run():
             st.session_state["last_activity_time"] = time.time()
 
         with st.sidebar:
-            if st.button("Sair"):
-                for key in ("authentication_status", "username", "name", "user_id", "last_activity_time"):
-                    st.session_state.pop(key, None)
-                reset_exam_progress()
-                st.rerun()
+            col_badge, col_logout = st.columns([2, 1])
+            with col_badge:
+                render_user_badge(st.session_state["username"])
+            with col_logout:
+                if st.button("Sair"):
+                    for key in ("authentication_status", "username", "name", "user_id", "last_activity_time"):
+                        st.session_state.pop(key, None)
+                    reset_exam_progress()
+                    st.rerun()
         main()
         return
 

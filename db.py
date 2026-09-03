@@ -1,12 +1,39 @@
+import time
 from datetime import datetime, timedelta, timezone
+from functools import wraps
 
 import bcrypt
+import httpx
 import streamlit as st
 from supabase import Client, create_client
 
 LOCKOUT_THRESHOLD = 5
 LOCKOUT_MINUTES = 15
 GENERIC_LOGIN_ERROR = "Usuário ou senha inválidos."
+
+# The network path to Supabase from some environments has short-lived
+# connectivity blips (bursts of a few seconds where every request fails),
+# so every function that talks to Supabase gets a few retries with
+# exponential backoff before giving up, to ride out a blip instead of
+# hammering it at a fixed short interval.
+_RETRYABLE_ERRORS = (httpx.TransportError, ConnectionError)
+_MAX_ATTEMPTS = 5
+_RETRY_BASE_DELAY_SECONDS = 0.5
+
+
+def _retry_on_connection_error(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        last_error = None
+        for attempt in range(_MAX_ATTEMPTS):
+            try:
+                return func(*args, **kwargs)
+            except _RETRYABLE_ERRORS as e:
+                last_error = e
+                if attempt < _MAX_ATTEMPTS - 1:
+                    time.sleep(_RETRY_BASE_DELAY_SECONDS * (2 ** attempt))
+        raise last_error
+    return wrapper
 
 # Used to run a bcrypt comparison even when the username doesn't exist, so a
 # login attempt against an unknown username takes about as long as one against
@@ -20,11 +47,13 @@ def get_client() -> Client:
     return create_client(st.secrets["supabase"]["url"], st.secrets["supabase"]["service_key"])
 
 
+@_retry_on_connection_error
 def username_exists(username: str) -> bool:
     res = get_client().table("users").select("id").eq("username", username).execute()
     return len(res.data) > 0
 
 
+@_retry_on_connection_error
 def register_user(username: str, display_name: str, password: str) -> None:
     password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     get_client().table("users").insert({
@@ -34,6 +63,7 @@ def register_user(username: str, display_name: str, password: str) -> None:
     }).execute()
 
 
+@_retry_on_connection_error
 def _reset_failed_attempts(username: str) -> None:
     get_client().table("users").update({
         "failed_login_attempts": 0,
@@ -41,6 +71,7 @@ def _reset_failed_attempts(username: str) -> None:
     }).eq("username", username).execute()
 
 
+@_retry_on_connection_error
 def _register_failed_attempt(username: str, current_count: int) -> None:
     new_count = current_count + 1
     update = {"failed_login_attempts": new_count}
@@ -50,6 +81,7 @@ def _register_failed_attempt(username: str, current_count: int) -> None:
     get_client().table("users").update(update).eq("username", username).execute()
 
 
+@_retry_on_connection_error
 def verify_login(username: str, password: str) -> tuple[bool, str, dict | None]:
     """Checks credentials with brute-force lockout. Returns (success, message, user_row)."""
     username = username.strip().lower()
@@ -82,6 +114,7 @@ def verify_login(username: str, password: str) -> tuple[bool, str, dict | None]:
     return False, GENERIC_LOGIN_ERROR, None
 
 
+@_retry_on_connection_error
 def save_attempt(
     user_id: str,
     username: str,
@@ -114,6 +147,7 @@ def is_admin(username: str) -> bool:
 
 
 @st.cache_data(ttl=30)
+@_retry_on_connection_error
 def get_questions_by_version(version: str) -> list[dict]:
     res = (
         get_client()
@@ -125,6 +159,7 @@ def get_questions_by_version(version: str) -> list[dict]:
     return res.data
 
 
+@_retry_on_connection_error
 def insert_questions(version: str, questions: list[dict], added_by: str) -> int:
     rows = [
         {
@@ -145,6 +180,7 @@ def insert_questions(version: str, questions: list[dict], added_by: str) -> int:
     return len(rows)
 
 
+@_retry_on_connection_error
 def get_user_attempts(username: str) -> list[dict]:
     res = (
         get_client()
