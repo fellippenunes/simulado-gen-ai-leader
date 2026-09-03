@@ -162,7 +162,7 @@ def build_brand_css() -> str:
 
         [data-testid="stAppViewContainer"] .main .block-container,
         [data-testid="stMainBlockContainer"] {
-            padding-top: 1.5rem !important;
+            padding-top: 3.5rem !important;
         }
 
         .main-header {
