@@ -488,7 +488,7 @@ def render_user_badge(username: str):
 def reset_exam_progress():
     for key in (
         "current_exam", "answers", "current_q_idx", "checked", "submitted",
-        "attempt_saved", "exam_started", "exam_start_time", "exam_duration_seconds",
+        "attempt_saved", "exam_started", "exam_start_time", "exam_duration_seconds", "use_timer",
         "exam_mode", "exam_topic", "review_flags", "reviewing", "nav_source", "cycle_list",
     ):
         st.session_state.pop(key, None)
@@ -821,19 +821,23 @@ def render_exam_tab(username, user_id):
         if st.session_state.get("submitted"):
             render_results_dashboard(exam_list, total_qs, active_mode, username, user_id, QUESTION_VERSION, active_topic)
         else:
+            use_timer = st.session_state.get("use_timer", True)
             col_timer, col_end = st.columns([5, 1.3])
+            remaining = None
             with col_timer:
-                remaining = render_timer()
+                if use_timer:
+                    remaining = render_timer()
             with col_end:
                 with st.container(key="endbtn"):
                     if st.button("⏹️ Encerrar", use_container_width=True):
                         st.session_state["submitted"] = True
                         st.rerun()
-            if remaining <= 0:
+            if use_timer and remaining <= 0:
                 st.session_state["submitted"] = True
                 st.rerun()
             else:
-                st_autorefresh(interval=1000, key="exam_timer_refresh")
+                if use_timer:
+                    st_autorefresh(interval=1000, key="exam_timer_refresh")
                 if active_mode != "Study Mode (Instant Feedback)" and st.session_state.get("reviewing"):
                     render_review_table(total_qs)
                 else:
@@ -877,6 +881,13 @@ def render_exam_tab(username, user_id):
             ["Study Mode (Instant Feedback)", "Exam Mode (Final Score Only)"],
             disabled=exam_started,
         )
+
+    use_timer = st.sidebar.checkbox(
+        "⏱️ Cronômetro regressivo",
+        value=True,
+        disabled=exam_started,
+        help="Desative para responder sem limite de tempo, independentemente do modo escolhido.",
+    )
 
     if exam_type in PRESET_COUNTS:
         selected_topic = None
@@ -922,6 +933,7 @@ def render_exam_tab(username, user_id):
         st.session_state["exam_started"] = True
         st.session_state["exam_start_time"] = time.time()
         st.session_state["exam_duration_seconds"] = exam_duration_seconds
+        st.session_state["use_timer"] = use_timer
         st.session_state["exam_mode"] = mode
         st.session_state["exam_topic"] = selected_topic
         st.session_state["review_flags"] = set()
